@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from "@/context/AuthContext"
 import { api } from "@/lib/axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -21,6 +22,8 @@ const Login = () => {
         })
     }
 
+    const {login} = useAuth()
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
@@ -33,7 +36,8 @@ const Login = () => {
             const token = await response.data.token
             localStorage.setItem("token", token)
             alert("ログインしました")
-            router.push("/")
+            login(token)
+            router.push("/create")
         } catch {
             alert("ログインできません")
         }
