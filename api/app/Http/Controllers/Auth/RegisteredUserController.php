@@ -25,12 +25,14 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'slug' => ['required', 'string', 'alpha_dash', 'unique:users,slug', 'max:20']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->string('password')),
+            'slug' => $request->slug
         ]);
 
         // event(new Registered($user)); //メール認証を使う時に必要

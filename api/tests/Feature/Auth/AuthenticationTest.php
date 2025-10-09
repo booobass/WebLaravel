@@ -19,7 +19,7 @@ it('can login and return token', function () {
     ]);
 
     $response->assertStatus(200)->assertJsonStructure([
-        'user' => ['id', 'name', 'email'],
+        'user' => ['id', 'name', 'email', 'slug'],
         'token'
     ]);
 

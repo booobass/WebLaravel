@@ -12,7 +12,8 @@ const Register = () => {
     const [user, setUser] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
+        slug: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +30,8 @@ const Register = () => {
                 name: user.name,
                 email: user.email,
                 password: user.password,
-                password_confirmation: user.password
+                password_confirmation: user.password,
+                slug: user.slug
             })
             alert("ユーザー登録しました")
             router.push("/login")
@@ -65,6 +67,14 @@ const Register = () => {
                             type="text"
                             name="password"
                             value={user.password}
+                            onChange={handleChange}
+                            required />
+                    </label>
+                    <label>URL：
+                        <input
+                            type="text"
+                            name="slug"
+                            value={user.slug}
                             onChange={handleChange}
                             required />
                     </label>
