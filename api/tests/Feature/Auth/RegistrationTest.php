@@ -12,11 +12,12 @@ it('can register a user', function () {
         'name' => 'testname',
         'email' => 'test@example.com',
         'password' => 'password',
-        'password_confirmation' => 'password'
+        'password_confirmation' => 'password',
+        'slug' => 'test_abc'
     ]);
 
     $response->assertStatus(201)->assertJsonStructure([
-        'user' => ['id', 'name', 'email'],
+        'user' => ['id', 'name', 'email', 'slug'],
         'token'
     ]);
 
@@ -29,7 +30,8 @@ it('cannot register with invalid data', function () {
     $response = $this->postJson('/api/register', [
         'name' => '',
         'email' => 'not-an-email',
-        'password' => 'short'
+        'password' => 'short',
+        'slug' => ''
     ]);
 
     $response->assertStatus(422);
