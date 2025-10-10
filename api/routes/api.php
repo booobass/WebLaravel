@@ -21,4 +21,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/album/store', [AlbumController::class, 'store']);
+    Route::get('/albums', [AlbumController::class, 'index']);
 });
+
+Route::get('/uuu/{slug}/albums', [AlbumController::class, 'userAlbums']);
