@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,27 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        $albums = Album::Where('user_id', Auth::id())
+            ->with('songs')
+            ->latest()
+            ->get();
+
+        return response()->json(['albums' => $albums]);
+    }
+
+    public function userAlbums($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $albums = Album::where('user_id', $user->id)
+            ->with('songs')
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'user' => $user->only(['id', 'slug']),
+            'albums' => $albums
+        ]);
     }
 
     /**

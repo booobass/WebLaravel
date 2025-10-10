@@ -4,3 +4,16 @@ export type UserType = {
     email: string;
     password: string;
 }
+
+export type SongType = {
+    id: number;
+    title: string;
+    track_number: number;
+}
+
+export type AlbumType = {
+    id: number;
+    title: string;
+    image: string;
+    songs: SongType[]
+}
