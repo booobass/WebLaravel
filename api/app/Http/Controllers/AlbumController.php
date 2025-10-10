@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Album;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class AlbumController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], //2MBまで
+            'songs' => ['array'],
+            'songs.*.title' => ['required', 'string', 'max:255'],
+            'songs.*.track_number' => ['required', 'integer', 'min:1']
+        ]);
+
+        $path = $request->file('image')->store('images', 'public');
+        $validated['image'] = basename($path);
+
+        $album = new Album($validated);
+        $album->user_id = Auth::user()->id;
+        $album->save();
+
+        foreach($request->input('songs') as $songData) {
+            $album->songs()->create([
+                'title' => $songData['title'],
+                'track_number' => $songData['track_number']
+            ]);
+        }
+
+        return response()->json(['album' => $album->load('songs')], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Album $album)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Album $album)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Album $album)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Album $album)
+    {
+        //
+    }
+}

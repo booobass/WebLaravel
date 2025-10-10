@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
@@ -16,4 +17,8 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/album/store', [AlbumController::class, 'store']);
 });
