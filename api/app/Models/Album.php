@@ -12,4 +12,14 @@ class Album extends Model
         'image',
         'is_public'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function songs()
+    {
+        return $this->hasMany(Song::class);
+    }
 }

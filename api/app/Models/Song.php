@@ -11,4 +11,9 @@ class Song extends Model
         'title',
         'track_number'
     ];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
 }

@@ -47,4 +47,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function albums()
+    {
+        return $this->hasMany(Album::class);
+    }
+
+    public function tracks()
+    {
+        return $this->hasMany(Track::class);
+    }
 }
