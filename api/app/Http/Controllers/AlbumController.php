@@ -58,7 +58,7 @@ class AlbumController extends Controller
             'songs.*.track_number' => ['required', 'integer', 'min:1']
         ]);
 
-        $path = $request->file('image')->store('images', 'public');
+        $path = $request->file('image')->store('images', 'public'); //store()でファイル名はランダムな４０文字のハッシュ値に置き換えられる
         $validated['image'] = basename($path);
 
         $album = new Album($validated);
