@@ -10,7 +10,7 @@ const CreateAlbum = () => {
     const [title, setTitle] = useState("")
     const [songs, setSongs] = useState([{title: "", track_number: 1}])
 
-    console.log(image)
+    console.log("image", image)
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if(acceptedFiles.length > 0) {
@@ -22,7 +22,7 @@ const CreateAlbum = () => {
         onDrop,
         accept: {"image/*": [".png", ".jpg", ".jpeg", ".gif"]},
         maxFiles: 1,
-        maxSize: 2 * 1024 * 1024,
+        maxSize: 2 * 1024 * 1024, //1KB 1024byte 1MB 1024 * 1024byte
         validator: (file) => {
             if(file.size > 2 * 1024 * 1024) {
                 return {

@@ -39,5 +39,5 @@ it('can create an album with songs', function () {
 
     $album = Album::first();
 
-    Storage::disk('public')->assertExists('images/' . basename($response['album']['image']));
+    Storage::disk('public')->assertExists('images/' . $album->image);
 });

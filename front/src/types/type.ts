@@ -17,3 +17,10 @@ export type AlbumType = {
     image: string;
     songs: SongType[]
 }
+
+export type TrackType = {
+    id: number;
+    name: string;
+    describe: string;
+    audio_path: string;
+}
