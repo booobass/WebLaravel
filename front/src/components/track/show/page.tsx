@@ -1,5 +1,6 @@
 "use client"
 
+import AudioPlayer from "@/components/AudioPlayer"
 import { api } from "@/lib/axios"
 import { TrackType } from "@/types/type"
 import { useParams } from "next/navigation"
@@ -51,8 +52,12 @@ const ShowTrack = () => {
                     <div>
                         {data.tracks.map((t) => (
                             <div key={t.id}>
-                                <h4>{t.describe}</h4>
-                                <h3>{t.name}</h3>
+                                <div>
+                                    <h4>{t.describe}</h4>
+                                    <h3>{t.name}</h3>
+                                </div>
+                                <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
+                                <audio src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} controls></audio>
                             </div>
                         ))}
                     </div>
