@@ -24,3 +24,25 @@ export type TrackType = {
     describe: string;
     audio_path: string;
 }
+
+export type BandType = {
+    id: number;
+    name: string;
+}
+
+export type DjType = {
+    id: number;
+    name: string;
+}
+
+export type GigType = {
+    id: number;
+    date: string;
+    place: string;
+    open_time: string;
+    start_time: string;
+    adv_price: number;
+    day_price: number;
+    bands: BandType[];
+    djs?: DjType[];
+}
