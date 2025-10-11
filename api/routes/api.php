@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\GigController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/albums', [AlbumController::class, 'index']);
     Route::post('/track/store', [TrackController::class, 'store']);
     Route::get('/tracks', [TrackController::class, 'index']);
+    Route::post('/gig/store', [GigController::class, 'store']);
 });
 
 Route::get('/uuu/{slug}/albums', [AlbumController::class, 'userAlbums']);

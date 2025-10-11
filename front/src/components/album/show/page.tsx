@@ -2,6 +2,7 @@
 
 import { api } from "@/lib/axios"
 import { AlbumType } from "@/types/type"
+import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -53,6 +54,14 @@ const ShowAlbum = () => {
                         {data.albums.map((a) => (
                             <div key={a.id}>
                                 <h3>{a.title}</h3>
+                                <div>
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
+                                        alt={a.title}
+                                        width={80}
+                                        height={80}
+                                     />
+                                </div>
                             </div>
                         ))}
                     </div>
