@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gig;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,21 @@ class GigController extends Controller
     public function index()
     {
         //
+    }
+
+    public function userGigs($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $gigs = Gig::where('user_id', $user->id)
+            ->with(['bands', 'djs'])
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'user' => $user->only(['id', 'slug']),
+            'gigs' => $gigs
+        ]);
     }
 
     /**

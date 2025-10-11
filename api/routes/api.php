@@ -31,3 +31,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('/uuu/{slug}/albums', [AlbumController::class, 'userAlbums']);
 Route::get('/uuu/{slug}/tracks', [TrackController::class, 'userTracks']);
+Route::get('/uuu/{slug}/gigs', [GigController::class, 'userGigs']);
