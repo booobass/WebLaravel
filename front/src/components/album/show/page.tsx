@@ -62,7 +62,7 @@ const ShowAlbum = () => {
                 {data.albums.length === 0 ? (
                     <p>登録されていません</p>
                 ) : (
-                    <div>
+                    <div className="max-w-[800px]">
                         <div className={`${styles.main}`}>
                             <div
                                 className={styles.sliderInner}
@@ -74,8 +74,8 @@ const ShowAlbum = () => {
                                             <Image
                                                 src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
                                                 alt={a.title}
-                                                width={180}
-                                                height={180}
+                                                width={220}
+                                                height={220}
                                                 priority
                                                 />
                                         </div>

@@ -1,7 +1,7 @@
 .main {
     position: relative;
     width: 400px;
-    height: 250px;
+    height: 300px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -26,25 +26,6 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-}
-
-.prev,
-.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #ffffffcc;
-    border: none;
-    font-size: 18px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1;
-}
-.prev {
-    left: 10px;
-}
-.next {
-    right: 10px;
 }
 
 .indicator {

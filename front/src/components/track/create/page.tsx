@@ -1,7 +1,7 @@
 "use client"
 
 import { api } from "@/lib/axios"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 const CreateTrack = () => {
@@ -11,6 +11,24 @@ const CreateTrack = () => {
         describe: ""
     })
     const [audio, setAudio] = useState<File | null>(null)
+    const [trackCount, setTrackCount] = useState(0)
+
+    useEffect(() => {
+        const fetchTrack = async () => {
+            try {
+                const response = await api.get("/api/tracks",
+                    {
+                        headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
+                    }
+                )
+                console.log("data", response.data.tracks.length)
+                setTrackCount(response.data.tracks.length)
+            } catch {
+                alert('トラックデータ取得できません')
+            }
+        }
+        fetchTrack()
+    }, [])
 
     console.log("audio", audio)
 
@@ -47,6 +65,12 @@ const CreateTrack = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        
+        if (trackCount >= 3) {
+            alert("3曲までしか登録できません")
+            return
+        }
+        
         try {
             const formData = new FormData()
             formData.append("name", data.name)
