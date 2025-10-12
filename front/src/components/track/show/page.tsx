@@ -46,13 +46,13 @@ const ShowTrack = () => {
         <div>
             <div>
                 <h2>音源</h2>
-                <div>
+                <div className="max-w-[800px]">
                     {data.tracks.length === 0 ? (null) : (
-                        <div className="flex justify-evenly">
+                        <div className="flex flex-wrap justify-evenly gap-6">
                             {data.tracks.map((t) => (
                                 <div
                                     key={t.id}
-                                    className={`max-w-[300px] w-full border justify-items-center p-3`}
+                                    className={`max-w-[300px] w-full justify-items-center p-3 border-4 border-double rounded-sm`}
                                 >
                                     <div className="text-center">
                                         <h4 className="text-xl border-b">{t.describe}</h4>

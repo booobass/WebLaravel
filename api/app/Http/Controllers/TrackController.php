@@ -44,6 +44,14 @@ class TrackController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
+        $trackCount = $user->tracks()->count();
+
+        if ($trackCount >= 3) {
+            return response()->json([
+                'message' => '3曲までしか登録できません'
+            ], 403);
+        }
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'describe' => ['required', 'string', 'max:255'],

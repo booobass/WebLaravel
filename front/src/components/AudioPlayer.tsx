@@ -7,7 +7,7 @@ import { useRef, useState } from "react"
 const AudioPlayer = ({src} :{src: string}) => {
 
     const audioRef = useRef<HTMLAudioElement>(null)
-    const [vol, setVol] = useState(1.0)
+    const [vol, setVol] = useState(0.3)
 
     const play = () => audioRef.current?.play()
     const pause = () => audioRef.current?.pause()
