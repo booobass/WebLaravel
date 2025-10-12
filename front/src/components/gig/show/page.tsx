@@ -61,13 +61,13 @@ const ShowGig = () => {
                                     )}
                                     
                                 </div>
-                                <div>
-                                    <p>{formatTime(g.open_time)}</p>
-                                    <p>{formatTime(g.start_time)}</p>
+                                <div className="flex">
+                                    <p>open:{formatTime(g.open_time)}</p>
+                                    <p>start:{formatTime(g.start_time)}</p>
                                 </div>
-                                <div>
-                                    <p>{g.adv_price}</p>
-                                    <p>{g.day_price}</p>
+                                <div className="flex">
+                                    <p>adv.¥{g.adv_price}</p>
+                                    <p>day.¥{g.day_price}</p>
                                 </div>
                             </div>
                         ))}

@@ -1,5 +1,7 @@
 "use client"
 
+import audioStyle from "@/styles/player.module.css"
+import Image from "next/image"
 import { useRef, useState } from "react"
 
 const AudioPlayer = ({src} :{src: string}) => {
@@ -27,20 +29,51 @@ const AudioPlayer = ({src} :{src: string}) => {
         <div>
             <audio src={src} ref={audioRef}></audio>
 
-            <div>
-                <button onClick={play}>再生</button>
-                <button onClick={pause}>停止</button>
-                <button onClick={restart}>最初に戻る</button>
+            <div className="mt-4 flex justify-evenly">
+                <button onClick={restart}>
+                    <Image
+                        src={"/restart.svg"}
+                        alt="戻る"
+                        width={30}
+                        height={30}
+                     />
+                </button>
+                <button onClick={play}>
+                    <Image
+                        src={"/start.svg"}
+                        alt="再生"
+                        width={30}
+                        height={30}
+                     />
+                </button>
+                <button onClick={pause}>
+                    <Image
+                        src={"/pause.svg"}
+                        alt="停止"
+                        width={30}
+                        height={30}
+                     />
+                </button>
             </div>
             <div>
-                <label>音量：
+                <label className="flex items-center mt-2">
+                    <div>
+                        <Image
+                            src={"/volume.svg"}
+                            alt="音量"
+                            width={30}
+                            height={30}
+                        />
+                    </div>
                     <input
                         type="range"
                         min={0}
                         max={1}
                         step={0.01}
                         value={vol}
-                        onChange={handleVolumeChange} />
+                        onChange={handleVolumeChange}
+                        className={`${audioStyle.range}`}
+                     />
                 </label>
             </div>
         </div>
