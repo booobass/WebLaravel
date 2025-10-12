@@ -28,7 +28,7 @@ class AlbumController extends Controller
 
         $albums = Album::where('user_id', $user->id)
             ->with('songs')
-            ->latest()
+            ->oldest()
             ->get();
 
         return response()->json([

@@ -46,22 +46,24 @@ const ShowTrack = () => {
         <div>
             <div>
                 <h2>音源</h2>
-                {data.tracks.length === 0 ? (
-                    <p>登録されていません</p>
-                ) : (
-                    <div>
-                        {data.tracks.map((t) => (
-                            <div key={t.id}>
-                                <div>
-                                    <h4>{t.describe}</h4>
-                                    <h3>{t.name}</h3>
+                <div>
+                    {data.tracks.length === 0 ? (null) : (
+                        <div className="flex justify-evenly">
+                            {data.tracks.map((t) => (
+                                <div
+                                    key={t.id}
+                                    className={`max-w-[300px] w-full border justify-items-center p-3`}
+                                >
+                                    <div className="text-center">
+                                        <h4 className="text-xl border-b">{t.describe}</h4>
+                                        <h3 className="mt-2 text-2xl font-bold">{t.name}</h3>
+                                    </div>
+                                    <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
                                 </div>
-                                <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
-                                <audio src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} controls></audio>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )

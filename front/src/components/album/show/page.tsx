@@ -1,6 +1,7 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import styles from "@/styles/slider.module.css"
 import { AlbumType } from "@/types/type"
 import Image from "next/image"
 import { useParams } from "next/navigation"
@@ -20,6 +21,8 @@ const ShowAlbum = () => {
 
     const [data, setData] = useState<UserAlbums | null>(null)
     const [loading, setLoading] = useState(true)
+    const [currentIndex, setCurrentIndex] = useState(0)
+
 
     useEffect(() => {
         if(!slug) return
@@ -40,6 +43,15 @@ const ShowAlbum = () => {
         fetchAlbums()
     }, [slug])
 
+    useEffect(() => {
+        if(!data || !data.albums) return
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % data.albums.length)
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [data])
+
     if(loading) return <p>loading...</p>
     if(!data) return <p>no data available</p>
 
@@ -51,19 +63,55 @@ const ShowAlbum = () => {
                     <p>登録されていません</p>
                 ) : (
                     <div>
-                        {data.albums.map((a) => (
-                            <div key={a.id}>
-                                <h3>{a.title}</h3>
-                                <div>
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
-                                        alt={a.title}
-                                        width={80}
-                                        height={80}
-                                     />
-                                </div>
+                        <div className={`${styles.main}`}>
+                            <div
+                                className={styles.sliderInner}
+                                style={{transform: `translateX(-${currentIndex * 100}%)`}}
+                            >
+                                {data.albums.map((a) => (
+                                    <div key={a.id} className={styles.slide}>
+                                        <div>
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
+                                                alt={a.title}
+                                                width={180}
+                                                height={180}
+                                                priority
+                                                />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                            <div className={styles.indicator}>
+                                {data.albums.map((_, index) => (
+                                    <span
+                                        key={index}
+                                        className={index === currentIndex ? styles.dotActive : styles.dot}
+                                        onClick={() => setCurrentIndex(index)}
+                                    >
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={styles.songMain}>
+                            <div
+                                className={styles.songSliderInner}
+                                style={{ transform: `translateY(-${currentIndex * 100}%)`}}
+                            >
+                                {data.albums.map((a) => (
+                                    <div key={a.id} className={styles.songSlide}>
+                                        <h3 className="text-xl font-bold">{a.title}</h3>
+                                        <ul className="mt-3">
+                                            {a.songs.map((as) => (
+                                                <li key={as.id}>
+                                                    {as.track_number}. {as.title}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

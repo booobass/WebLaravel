@@ -1,0 +1,23 @@
+.range {
+    appearance:none;
+    height:20px;
+    background-color:#fff;
+    width:120px;
+}
+
+.range::-webkit-slider-runnable-track {
+    background-color:#999;
+    height:5px;
+    margin:10%;
+}
+
+.range::-webkit-slider-thumb {
+    appearance:none;
+    background-color:#4b4b4b;
+    height:5px;
+    width:3px;
+    transform:scale(3);
+    filter:drop-shadow(0.2px 0.2px 0.2px gray);
+    border-left:solid 1px #fff;
+    border-right:solid 1px #fff;
+}
