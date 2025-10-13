@@ -6,7 +6,7 @@ import ShowTrack from "@/components/track/show/page"
 
 const MyWebPage = () => {
     return (
-        <div>
+        <div className="justify-items-center">
             <h2>ホームページ</h2>
             <ShowAlbum />
             <ShowTrack />

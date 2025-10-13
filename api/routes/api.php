@@ -4,7 +4,9 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GigController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrackController;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +29,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/track/store', [TrackController::class, 'store']);
     Route::get('/tracks', [TrackController::class, 'index']);
     Route::post('/gig/store', [GigController::class, 'store']);
+    Route::get('gigs', [GigController::class, 'index']);
+    Route::post('/profile/store', [Profile::class, 'store']);
+    Route::get('profiles', [ProfileController::class, 'index']);
+    Route::patch('profile/{profile}', [ProfileController::class, 'update']);
 });
 
 Route::get('/uuu/{slug}/albums', [AlbumController::class, 'userAlbums']);
 Route::get('/uuu/{slug}/tracks', [TrackController::class, 'userTracks']);
 Route::get('/uuu/{slug}/gigs', [GigController::class, 'userGigs']);
+Route::get('/uuu/${slug}/profiles', [ProfileController::class, 'userProfiles']);

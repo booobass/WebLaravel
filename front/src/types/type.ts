@@ -46,3 +46,10 @@ export type GigType = {
     bands: BandType[];
     djs?: DjType[];
 }
+
+export type ProfileType = {
+    id: number;
+    homepage_name: string;
+    description?: string;
+    background_color: string;
+}

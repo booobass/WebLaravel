@@ -14,7 +14,13 @@ class GigController extends Controller
      */
     public function index()
     {
-        //
+        $gigs = Gig::where('user_id', Auth::id())
+            ->with(['bands', 'djs'])
+            ->orderBy('date')
+            ->get();
+
+        return response()->json(['gigs' => $gigs]);
+
     }
 
     public function userGigs($slug)
@@ -23,7 +29,7 @@ class GigController extends Controller
 
         $gigs = Gig::where('user_id', $user->id)
             ->with(['bands', 'djs'])
-            ->latest()
+            ->orderBy('date')
             ->get();
 
         return response()->json([

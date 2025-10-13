@@ -58,7 +58,6 @@ const ShowAlbum = () => {
     return (
         <div>
             <div>
-                <h2>アルバム</h2>
                 {data.albums.length === 0 ? (
                     <p>登録されていません</p>
                 ) : (
