@@ -2,12 +2,18 @@
 
 import audioStyle from "@/styles/player.module.css"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const AudioPlayer = ({src} :{src: string}) => {
 
     const audioRef = useRef<HTMLAudioElement>(null)
     const [vol, setVol] = useState(0.3)
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = vol
+        }
+    }, [vol])
 
     const play = () => audioRef.current?.play()
     const pause = () => audioRef.current?.pause()

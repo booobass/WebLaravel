@@ -45,8 +45,7 @@ const ShowTrack = () => {
     return (
         <div>
             <div>
-                <h2>音源</h2>
-                <div className="max-w-[800px]">
+                <div className="w-[800px] max-md:w-[375px] mt-8">
                     {data.tracks.length === 0 ? (null) : (
                         <div className="flex flex-wrap justify-evenly gap-6">
                             {data.tracks.map((t) => (

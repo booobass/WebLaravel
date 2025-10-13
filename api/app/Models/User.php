@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Gig::class);
     }
+
+    public function profiles()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

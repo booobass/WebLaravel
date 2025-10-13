@@ -1,5 +1,6 @@
 "use client"
 
+import { zen } from "@/fonts/fonts";
 import { api } from "@/lib/axios";
 import { GigType } from "@/types/type";
 import { formatBand, formatDateWithDay, formatDj, formatTime } from "@/utils/formatters";
@@ -43,14 +44,14 @@ const ShowGig = () => {
 
     return (
         <div>
-            <div>
-                <h2>ライブ</h2>
+            <div className={`${zen.className} font-bold mt-8`}>
+                <h2 className="text-3xl">Live</h2>
                 {data.gigs.length === 0 ? (
                     <p>登録されていません</p>
                 ) : (
                     <div>
                         {data.gigs.map((g) => (
-                            <div key={g.id}>
+                            <div key={g.id} className="mt-6 pb-3 border-b border-dashed text-xl tracking-wide">
                                 <p>{formatDateWithDay(g.date)}@{g.place}</p>
                                 <div>
                                     <p>{formatBand(g.bands)}</p>
