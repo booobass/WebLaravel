@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $profiles = Profile::where('user_id', Auth::id())->get();
 
-        return response()->json(['profiles', $profiles]);
+        return response()->json(['profiles' => $profiles]);
     }
 
     public function userProfiles($slug)
@@ -90,10 +90,9 @@ class ProfileController extends Controller
             'background_color' => ['required', 'string', 'regex:/^#[0-9a-fA-F]{6}$/']
         ]);
 
-        $profile = Auth::user()->profile;
         $profile->update($validated);
 
-        return response()->json(['profile', $profile], 200);
+        return response()->json(['profile' => $profile], 200);
     }
 
     /**

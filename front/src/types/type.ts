@@ -50,6 +50,6 @@ export type GigType = {
 export type ProfileType = {
     id: number;
     homepage_name: string;
-    description?: string;
+    description: string;
     background_color: string;
 }

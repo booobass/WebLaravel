@@ -10,7 +10,7 @@ type UserProfile = {
         id: number;
         slug: string;
     }
-    profiles: ProfileType
+    profiles: ProfileType[]
 }
 
 const ShowProfile = () => {
@@ -20,6 +20,9 @@ const ShowProfile = () => {
     const [data, setData] = useState<UserProfile | null>(null)
     const [loading, setLoading] = useState(true)
 
+    console.log("prof", data)
+
+
     useEffect(() => {
         if(!slug) return
 
@@ -27,7 +30,6 @@ const ShowProfile = () => {
             try {
                 const response = await api.get(`/api/uuu/${slug}/profiles`)
                 setData(response.data)
-                console.log("prof", response.data)
             } catch {
                 alert("データを取得出来ません")
             } finally {
@@ -43,11 +45,12 @@ const ShowProfile = () => {
 
     return (
         <div>
-            <div>
-                {!data.profiles ? (null): (
+            <div className="h-30">
+                {(!data.profiles) ? (null) : (
                     <div>
-                        <h1>{data.profiles.homepage_name}</h1>
-                        <p>{data.profiles.description}</p>
+                        <h1>{data.profiles[0].homepage_name}</h1>
+                        <p>{data.profiles[0].description}</p>
+                        <p>test</p>
                     </div>
                 )}
             </div>
