@@ -30,12 +30,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/tracks', [TrackController::class, 'index']);
     Route::post('/gig/store', [GigController::class, 'store']);
     Route::get('gigs', [GigController::class, 'index']);
-    Route::post('/profile/store', [Profile::class, 'store']);
-    Route::get('profiles', [ProfileController::class, 'index']);
-    Route::patch('profile/{profile}', [ProfileController::class, 'update']);
+    Route::post('/profile/store', [ProfileController::class, 'store']);
+    Route::get('/profiles', [ProfileController::class, 'index']);
+    Route::patch('/profile/{profile}', [ProfileController::class, 'update']);
 });
 
 Route::get('/uuu/{slug}/albums', [AlbumController::class, 'userAlbums']);
 Route::get('/uuu/{slug}/tracks', [TrackController::class, 'userTracks']);
 Route::get('/uuu/{slug}/gigs', [GigController::class, 'userGigs']);
-Route::get('/uuu/${slug}/profiles', [ProfileController::class, 'userProfiles']);
+Route::get('/uuu/{slug}/profiles', [ProfileController::class, 'userProfiles']);

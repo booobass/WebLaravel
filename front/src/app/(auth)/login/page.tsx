@@ -37,7 +37,7 @@ const Login = () => {
             localStorage.setItem("token", token)
             alert("ログインしました")
             login(token)
-            router.push("/create")
+            router.push("/customer")
         } catch {
             alert("ログインできません")
         }

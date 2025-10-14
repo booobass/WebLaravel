@@ -51,7 +51,7 @@ const ShowTrack = () => {
                             {data.tracks.map((t) => (
                                 <div
                                     key={t.id}
-                                    className={`max-w-[300px] w-full justify-items-center p-3 border-4 border-double rounded-sm`}
+                                    className={`max-w-[300px] w-full justify-items-center p-3 border-4 border-double rounded-sm bg-[#fefefe]`}
                                 >
                                     <div className="text-center">
                                         <h4 className="text-xl border-b">{t.describe}</h4>
