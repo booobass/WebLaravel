@@ -1,27 +1,56 @@
 "use client"
 
 import { api } from "@/lib/axios"
-import { useState } from "react"
+import { ReadGig } from "@/lib/ReadGig"
+import { useParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
-const CreateGig = () => {
+const UpdateGig = () => {
 
-    const [data, setData] = useState({
+    const params = useParams()
+    const id = params.id as string
+
+    const {gigs} = ReadGig()
+
+    
+    const singleGig = gigs.find((e) => String(e.id) === id)
+    
+    console.log("gigs", singleGig)
+    const [update, setUpdate] = useState({
         date: "",
         place: "",
         open_time: "",
         start_time: "",
         adv_price: "",
-        day_price: ""
+        day_price: "",
     })
 
-    const [band, setBand] = useState([{name: ""}])
-    const [dj, setDj] = useState([{name: ""}])
+    console.log("date", update)
 
-    console.log("band", band)
+    const [bands, setBands] = useState([{name: ""}])
+    const [djs, setDjs] = useState([{name: ""}])
+
+
+    useEffect(() => {
+        if(singleGig) {
+            setUpdate({
+                date: singleGig.date,
+                place: singleGig.place,
+                open_time: singleGig.open_time.slice(0, 5),
+                start_time: singleGig.start_time.slice(0, 5),
+                adv_price: String(singleGig.adv_price),
+                day_price: String(singleGig.day_price),
+            })
+            setBands(singleGig.bands)
+            setDjs(singleGig.djs ?? [])
+        }
+        
+    }, [singleGig])
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({
-            ...data,
+        setUpdate({
+            ...update,
             [e.target.name]: e.target.value
         })
     }
@@ -29,45 +58,42 @@ const CreateGig = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            const filterBands = band
+            const filterBands = bands
                 .map(b => ({name: (b.name ?? "").trim()}))
                 .filter(b => b.name !== "")
-            const filteredDjs = dj
-                .map(d => ({name: (d.name ?? "").trim()})) //??でnull,undefinedを"""にして、trimで文字列の前後の空白を削除
+            const filterDjs = djs
+                .map(d => ({name: (d.name ?? "").trim()}))
                 .filter(d => d.name !== "")
-            await api.post("/api/gig/store",
+            await api.patch(`/api/gig/${id}`,
                 {
-                    date: data.date,
-                    place: data.place,
-                    open_time: data.open_time,
-                    start_time: data.start_time,
-                    adv_price: data.adv_price,
-                    day_price: data.day_price,
+                    date: update.date,
+                    place: update.place,
+                    open_time: update.open_time,
+                    start_time: update.start_time,
+                    adv_price: update.adv_price,
+                    day_price: update.day_price,
                     bands: filterBands,
-                    djs: filteredDjs
-                },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`
-                    }
+                    djs: filterDjs
+                }, {
+                    headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
                 }
             )
-            alert("データを登録しました")
+            alert("更新しました")
         } catch {
-            alert("データを登録出来ません")
+            alert("更新できません")
         }
     }
 
     return (
         <div>
             <div>
-                <h3>ライブ登録</h3>
+                <h3>編集</h3>
                 <form onSubmit={handleSubmit}>
                     <label>日付：
                         <input
                             type="date"
                             name="date"
-                            value={data.date}
+                            value={update.date}
                             onChange={handleChange}
                             required />
                     </label>
@@ -75,7 +101,7 @@ const CreateGig = () => {
                         <input
                             type="text"
                             name="place"
-                            value={data.place}
+                            value={update.place}
                             onChange={handleChange}
                             required />
                     </label>
@@ -83,7 +109,7 @@ const CreateGig = () => {
                         <input
                             type="time"
                             name="open_time"
-                            value={data.open_time}
+                            value={update.open_time}
                             onChange={handleChange}
                             required />
                     </label>
@@ -91,7 +117,7 @@ const CreateGig = () => {
                         <input
                             type="time"
                             name="start_time"
-                            value={data.start_time}
+                            value={update.start_time}
                             onChange={handleChange}
                             required />
                     </label>
@@ -99,7 +125,7 @@ const CreateGig = () => {
                         <input
                             type="text"
                             name="adv_price"
-                            value={data.adv_price}
+                            value={update.adv_price}
                             onChange={handleChange}
                             required />
                     </label>
@@ -107,46 +133,48 @@ const CreateGig = () => {
                         <input
                             type="text"
                             name="day_price"
-                            value={data.day_price}
+                            value={update.day_price}
                             onChange={handleChange}
                             required />
                     </label>
-                    {band.map((b, i) => (
+                    {bands.map((b, i) => (
                         <div key={i}>
                             <label>バンド：
                                 <input
                                     type="text"
                                     value={b.name}
                                     onChange={(e) => {
-                                        const newBand = [...band]
+                                        const newBand = [...bands]
                                         newBand[i].name = e.target.value
-                                        setBand(newBand)
+                                        setBands(newBand)
                                     }} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setBand([...band, {name: ""}])}>バンドを追加</button>
-                    {dj.map((d, i) => (
+                    <button type="button" onClick={() => setBands([...bands, {name: ""}])}>バンドを追加</button>
+                    {djs.map((d, i) => (
                         <div key={i}>
                             <label>DJ：
                                 <input
                                     type="text"
                                     value={d.name}
                                     onChange={(e) => {
-                                        const newDj = [...dj]
+                                        const newDj = [...djs]
                                         newDj[i].name = e.target.value
-                                        setDj(newDj)
+                                        setDjs(newDj)
                                     }} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setDj([...dj, {name: ""}])}>DJを追加</button>
+                    <button type="button" onClick={() => setDjs([...djs, {name: ""}])}>DJを追加</button>
                     <button>登録</button>
                 </form>
             </div>
         </div>
     )
 
+    
+
 }
 
-export default CreateGig
+export default UpdateGig

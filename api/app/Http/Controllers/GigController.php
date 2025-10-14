@@ -100,7 +100,38 @@ class GigController extends Controller
      */
     public function update(Request $request, Gig $gig)
     {
-        //
+        $validated = $request->validate([
+            'date' => ['required', 'date'],
+            'place' => ['required', 'string', 'max:255'],
+            'open_time' => ['required', 'date_format:H:i'],
+            'start_time' => ['required', 'date_format:H:i'],
+            'adv_price' => ['required', 'integer'],
+            'day_price' => ['required', 'integer'],
+            'bands' => ['required', 'array', 'min:1'],
+            'bands.*.name' => ['required', 'string', 'max:255'],
+            'djs' => ['nullable', 'array'],
+            'djs.*.name' => ['nullable', 'string', 'max:255']
+        ]);
+
+        $gig->update([
+            'date' => $validated['date'],
+            'place' => $validated['place'],
+            'open_time' => $validated['open_time'],
+            'start_time' => $validated['start_time'],
+            'adv_price' => $validated['adv_price'],
+            'day_price' => $validated['day_price'],
+        ]);
+
+        $gig->bands()->delete();
+        $gig->djs()->delete();
+
+        $gig->bands()->createMany($validated['bands']);
+
+        if (!empty($validated['djs'])) {
+            $gig->djs()->createMany($validated['djs']);
+        }
+
+        return response()->json(['gig' => $gig->load(['bands', 'djs'])], 200);
     }
 
     /**
