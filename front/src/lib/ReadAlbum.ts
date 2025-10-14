@@ -1,28 +1,28 @@
 "use client"
 
-import { GigType } from "@/types/type"
+import { AlbumType } from "@/types/type"
 import { useEffect, useState } from "react"
 import { api } from "./axios"
 
-export const ReadGig = () => {
+export const ReadAlbum = () => {
 
-    const [gigs, setGigs] = useState<GigType[]>([])
+    const [albums, setAlbums] = useState<AlbumType[]>([])
 
     useEffect(() => {
-        const fetchGig = async () => {
+        const fetchAlbum = async () => {
             try {
-                const response = await api.get("/api/gigs",
+                const response = await api.get("/api/albums",
                     {
                         headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
                     }
                 )
-                setGigs(response.data.gigs)
+                setAlbums(response.data.albums)
             } catch {
                 alert("データを取得できません")
-            }           
+            }
         }
-        fetchGig()
+        fetchAlbum()
     }, [])
 
-    return {gigs}
+    return {albums}
 }

@@ -29,7 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/track/store', [TrackController::class, 'store']);
     Route::get('/tracks', [TrackController::class, 'index']);
     Route::post('/gig/store', [GigController::class, 'store']);
-    Route::get('gigs', [GigController::class, 'index']);
+    Route::get('/gigs', [GigController::class, 'index']);
+    Route::patch('/gig/{gig}', [GigController::class, 'update']);
     Route::post('/profile/store', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
     Route::patch('/profile/{profile}', [ProfileController::class, 'update']);
