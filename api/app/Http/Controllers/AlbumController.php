@@ -6,6 +6,7 @@ use App\Models\Album;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -96,7 +97,40 @@ class AlbumController extends Controller
      */
     public function update(Request $request, Album $album)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'songs' => ['array'],
+            'songs.*.title' => ['required', 'string', 'max:255'],
+            'songs.*.track_number' => ['required', 'integer', 'min:1']
+        ]);
+
+        if ($request->hasFile('image')) {
+            if($album->image && Storage::disk('public')->exists('images/' . $album->image)) {
+                Storage::disk('public')->delete('images/' . $album->image);
+            }
+
+            $path = $request->file('image')->store('images', 'public');
+            $validated['image'] = basename($path);
+        } else {
+            $validated['image'] = $album->image;
+        }
+
+        $album->update([
+            'title' => $validated['title'],
+            'image' => $validated['image'],
+        ]);
+
+        $album->songs()->delete();
+
+        foreach ($request->input('songs') as $songData) {
+            $album->songs()->create([
+                'title' => $songData['title'],
+                'track_number' => $songData['track_number']
+            ]);
+        }
+
+        return response()->json(['album' => $album->load('songs')], 200);
     }
 
     /**

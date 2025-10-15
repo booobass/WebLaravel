@@ -6,6 +6,7 @@ use App\Models\Track;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TrackController extends Controller
 {
@@ -90,7 +91,29 @@ class TrackController extends Controller
      */
     public function update(Request $request, Track $track)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'describe' => ['required', 'string', 'max:255'],
+            'audio_path' => ['nullable', 'file', 'mimes:mp3,wav,m4a', 'max:8480']
+        ]);
+
+        if ($request->hasFile('audio_path')) {
+            if($track->audio_path && Storage::disk('public')->exists('tracks/' . $track->audio_path)) {
+                Storage::disk('public')->delete('tracks/' . $track->audio_path);
+            }
+
+            $path = $request->file('audio_path')->store('tracks', 'public');
+            $validated['audio_path'] = basename($path);
+        } else {
+            $validated['audio_path'] = $track->audio_path;
+        }
+
+        $track->update([
+            'name' => $validated['name'],
+            'describe' => $validated['describe']
+        ]);
+
+        return response()->json(['track' => $track], 200);
     }
 
     /**

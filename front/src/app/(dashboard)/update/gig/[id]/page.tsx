@@ -14,6 +14,8 @@ const UpdateGig = () => {
 
     
     const singleGig = gigs.find((e) => String(e.id) === id)
+
+    console.log("sG", singleGig)
     
     console.log("gigs", singleGig)
     const [update, setUpdate] = useState({
