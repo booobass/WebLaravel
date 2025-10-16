@@ -1,28 +1,29 @@
 "use client"
 
 import { GigType } from "@/types/type"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { api } from "./axios"
 
 export const ReadGig = () => {
 
     const [gigs, setGigs] = useState<GigType[]>([])
 
-    useEffect(() => {
-        const fetchGig = async () => {
-            try {
-                const response = await api.get("/api/gigs",
-                    {
-                        headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
-                    }
-                )
-                setGigs(response.data.gigs)
-            } catch {
-                alert("データを取得できません")
-            }           
-        }
-        fetchGig()
-    }, [])
+    const fetchGig = useCallback(async () => {
+        try {
+            const response = await api.get("/api/gigs",
+                {
+                    headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
+                }
+            )
+            setGigs(response.data.gigs)
+        } catch {
+            alert("データを取得できません")
+        }           
+    }, []) 
 
-    return {gigs}
+    useEffect(() => {
+        fetchGig()
+    }, [fetchGig])
+
+    return {gigs, fetchGig}
 }

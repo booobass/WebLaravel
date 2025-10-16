@@ -44,7 +44,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="wrapper">
             <div>
                 <h2>ログインページ</h2>
                 <form onSubmit={handleSubmit}>
