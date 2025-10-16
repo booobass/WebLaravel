@@ -121,6 +121,10 @@ class TrackController extends Controller
      */
     public function destroy(Track $track)
     {
-        //
+        Storage::disk('public')->delete('tracks/' . $track->audio_path);
+
+        $track->delete();
+
+        return response()->json(['message' => '音源を削除しました'], 200);
     }
 }

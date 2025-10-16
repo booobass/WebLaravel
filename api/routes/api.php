@@ -28,12 +28,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/album/store', [AlbumController::class, 'store']);
     Route::get('/albums', [AlbumController::class, 'index']);
     Route::patch('/album/{album}', [AlbumController::class, 'update']);
+    Route::delete('/album/{album}', [AlbumController::class, 'destroy']);
     Route::post('/track/store', [TrackController::class, 'store']);
     Route::get('/tracks', [TrackController::class, 'index']);
     Route::patch('/track/{track}', [TrackController::class, 'update']);
+    Route::delete('/track/{track}', [TrackController::class, 'destroy']);
     Route::post('/gig/store', [GigController::class, 'store']);
     Route::get('/gigs', [GigController::class, 'index']);
     Route::patch('/gig/{gig}', [GigController::class, 'update']);
+    Route::delete('/gig/{gig}', [GigController::class, 'destroy']);
     Route::post('/profile/store', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
     Route::patch('/profile/{profile}', [ProfileController::class, 'update']);

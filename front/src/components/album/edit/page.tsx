@@ -1,12 +1,36 @@
 "use client"
 
+import { api } from "@/lib/axios"
 import { ReadAlbum } from "@/lib/ReadAlbum"
+import modal from "@/styles/modal.module.css"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 
 const EditAlbum = () => {
 
-    const {albums} = ReadAlbum()
+    const {albums, fetchAlbum} = ReadAlbum()
+
+    const [selectedAlbum, setSelectedAlbum] = useState<number | null>(null)
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const handleDelete = async () => {
+        if(!selectedAlbum) return
+
+        try {
+            await api.delete(`/api/album/${selectedAlbum}`,
+                {
+                    headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
+                }
+            )
+            alert("削除しました")
+            setModalOpen(false)
+            setSelectedAlbum(null)
+            fetchAlbum()
+        } catch {
+            alert("削除できません")
+        }
+    }
 
     return (
         <div>
@@ -30,10 +54,25 @@ const EditAlbum = () => {
                         </ul>
                         <div>
                             <Link href={`update/album/${a.id}`}>編集</Link>
+                            <button
+                                onClick={() => {
+                                    setSelectedAlbum(a.id)
+                                    setModalOpen(true)
+                                }}
+                            >削除</button>
                         </div>
                     </div>
                 ))}
             </div>
+            {modalOpen && (
+                <div className={`${modal.overlay}`}>
+                    <div className={`${modal.modal}`}>
+                        <p>本当に削除しますか？</p>
+                        <button onClick={handleDelete}>削除</button>
+                        <button onClick={() => setModalOpen(false)}>キャンセル</button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

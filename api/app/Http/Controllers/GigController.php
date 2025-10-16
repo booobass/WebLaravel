@@ -139,6 +139,11 @@ class GigController extends Controller
      */
     public function destroy(Gig $gig)
     {
-        //
+        $gig->bands()->delete();
+        $gig->djs()->delete();
+
+        $gig->delete();
+
+        return response()->json(['message' => 'ライブ情報を削除しました'], 200);
     }
 }

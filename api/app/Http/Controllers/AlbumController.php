@@ -138,6 +138,12 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        Storage::disk('public')->delete('images/' . $album->image);
+
+        $album->songs()->delete();
+
+        $album->delete();
+
+        return response()->json(['message' => 'アルバムを削除しました'], 200);
     }
 }
