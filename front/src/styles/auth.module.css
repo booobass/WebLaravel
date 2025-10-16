@@ -1,0 +1,17 @@
+.main {
+    background-color: #f0f2f4;
+    border: solid 1px #666;
+    border-radius: 8px;
+    padding: 40px;
+    justify-items: center;
+}
+
+.input {
+    outline: none;
+    line-height: 28px;
+    padding-left: 8px;
+    border: solid 1px #666;
+    border-radius: 3px;
+    margin-left: 8px;
+    background-color: #fafafa;
+}

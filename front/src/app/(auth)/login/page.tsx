@@ -12,7 +12,8 @@ const Login = () => {
 
     const [user, setUser] = useState({
         email: "",
-        password: ""
+        password: "",
+        password_confirmation: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +31,7 @@ const Login = () => {
             const response = await api.post("/api/login", {
                 email: user.email,
                 password: user.password,
-                password_confirmation: user.password
+                password_confirmation: user.password_confirmation
             })
             console.log(response.data)
             const token = await response.data.token
@@ -64,6 +65,17 @@ const Login = () => {
                             onChange={handleChange}
                             required />
                     </label>
+                    <label>パスワード確認：
+                        <input
+                            type="text"
+                            name="password_confirmation"
+                            value={user.password_confirmation}
+                            onChange={handleChange}
+                            required />
+                    </label>
+                    {user.password === user.password_confirmation ? null : (
+                        <p>パスワードが一致しません</p>
+                    )}
                     <button>ログイン</button>
                 </form>
                 <div>
