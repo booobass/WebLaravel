@@ -1,6 +1,9 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import styles from "@/styles/auth.module.css"
+import border from "@/styles/border.module.css"
+import button from "@/styles/button.module.css"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -13,6 +16,7 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
+        password_confirmation: "",
         slug: ""
     })
 
@@ -30,7 +34,7 @@ const Register = () => {
                 name: user.name,
                 email: user.email,
                 password: user.password,
-                password_confirmation: user.password,
+                password_confirmation: user.password_confirmation,
                 slug: user.slug
             })
             alert("ユーザー登録しました")
@@ -42,47 +46,66 @@ const Register = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h2>ユーザー登録ページ</h2>
-                <form onSubmit={handleSubmit}>
-                    <label>ユーザー名：
-                        <input
-                            type="text"
-                            name="name"
-                            value={user.name}
-                            onChange={handleChange}
-                            required />
-                    </label>
-                    <label>メールアドレス：
-                        <input
-                            type="text"
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
-                            required />
-                    </label>
-                    <label>パスワード：
-                        <input
-                            type="text"
-                            name="password"
-                            value={user.password}
-                            onChange={handleChange}
-                            required />
-                    </label>
-                    <label>URL：
-                        <input
-                            type="text"
-                            name="slug"
-                            value={user.slug}
-                            onChange={handleChange}
-                            required />
-                    </label>
-                    <button>登録</button>
+        <div className="wrapper">
+            <div className={`${styles.main} max-w-[600px] w-full`}>
+                <h2 className={`${border.gray_m} text-xl font-bold`}>ユーザー登録ページ</h2>
+                <form onSubmit={handleSubmit} className={`mt-9`}>
+                        <label className="block">ユーザー名
+                            <input
+                                type="text"
+                                name="name"
+                                value={user.name}
+                                onChange={handleChange}
+                                required
+                                className={`${styles.input} w-[180px] block`} />
+                        </label>
+                        <label className="block mt-3">メールアドレス
+                            <input
+                                type="text"
+                                name="email"
+                                value={user.email}
+                                onChange={handleChange}
+                                required
+                                className={`${styles.input} w-[180px] block`} />
+                        </label>
+                        <label className="block mt-3">パスワード
+                            <input
+                                type="text"
+                                name="password"
+                                value={user.password}
+                                onChange={handleChange}
+                                required
+                                className={`${styles.input} w-[180px] block`} />
+                        </label>
+                        {user.password.length >= 6 || user.password.length === 0 ? null : (
+                            <p>８文字以上で登録して下さい</p>
+                        )}
+                        <label className="block mt-3">パスワード確認
+                            <input
+                                type="text"
+                                name="password_confirmation"
+                                value={user.password_confirmation}
+                                onChange={handleChange}
+                                required
+                                className={`${styles.input} w-[180px] block`} />
+                        </label>
+                        {user.password === user.password_confirmation ? null : (
+                            <p>パスワードが一致しません</p>
+                        )}
+                        <label className="block mt-3">URL
+                            <input
+                                type="text"
+                                name="slug"
+                                value={user.slug}
+                                onChange={handleChange}
+                                required
+                                className={`${styles.input} w-[180px] block`} />
+                        </label>
+                    <div className="mt-6">
+                        <button className={`${button.submitBtn} mt-6 mr-6`}>登録</button>
+                        <Link href={"/"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
-                <div>
-                    <Link href={"/"}>トップページに戻る</Link>
-                </div>
             </div>
         </div>
     )

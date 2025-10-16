@@ -7,7 +7,7 @@ import EditTrack from "@/components/track/edit/page"
 
 const Customer = () => {
     return (
-        <div>
+        <div className="wrapper">
             <h3>ホームページ登録情報</h3>
             <div>
                 <EditProfile />

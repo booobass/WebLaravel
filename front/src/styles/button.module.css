@@ -1,0 +1,15 @@
+.submitBtn {
+    border: 1px solid #666;
+    border-radius: 3px;
+    padding: 3px;
+    cursor: pointer;
+    background-color: #eaeaea;
+}
+
+.linkBtn {
+    border: 1px solid #666;
+    border-radius: 3px;
+    padding: 3px;
+    cursor: pointer;
+    background-color: #f0f2f4;
+}
