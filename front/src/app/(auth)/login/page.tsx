@@ -38,9 +38,10 @@ const Login = () => {
             })
             console.log(response.data)
             const token = await response.data.token
+            const slug = await response.data.user.slug
             localStorage.setItem("token", token)
             alert("ログインしました")
-            login(token)
+            login(token, slug)
             router.push("/create")
         } catch {
             alert("ログインできません")

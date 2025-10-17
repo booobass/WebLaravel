@@ -1,6 +1,8 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
@@ -93,10 +95,10 @@ const CreateTrack = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h4>音源登録</h4>
-                <form onSubmit={handleSubmit}>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
+                <h4 className="text-xl font-bold">音源登録</h4>
+                <form onSubmit={handleSubmit} className="mt-6">
                     <label>
                         <div {...getRootProps()}>
                             <input {...getInputProps()} />
@@ -105,23 +107,25 @@ const CreateTrack = () => {
                         </div>
                         {audio && <p>選択した画像：{audio.name}</p>}
                     </label>
-                    <label>音源の説明：
+                    <label className="block mt-3">音源の説明
                         <input
                             type="text"
                             name="describe"
                             value={data.describe}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>音源の名前：
+                    <label className="block mt-3">音源の名前
                         <input
                             type="text"
                             name="name"
                             value={data.name}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <button>登録</button>
+                    <button className={`${button.submitBtn} block mt-6`}>登録</button>
                 </form>
             </div>
         </div>

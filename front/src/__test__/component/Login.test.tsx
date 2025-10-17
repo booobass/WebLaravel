@@ -32,7 +32,13 @@ describe("Login Page", () => {
     })
 
     test("ログイン成功後、createページに遷移する", async () => {
-        mockedApi.post.mockResolvedValue({data: {}} as AxiosResponse)
+        mockedApi.post.mockResolvedValue({
+            data: {
+                token: "dummy-token",
+                user: {
+                    slug: "dummy-slug"
+                }
+            }} as AxiosResponse)
 
         renderWithAuth(<Login />)
         const user = userEvent.setup()

@@ -1,6 +1,8 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
@@ -63,10 +65,10 @@ const CreateAlbum = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h4>アルバム登録</h4>
-                <form onSubmit={handleSubmit}>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
+                <h4 className="text-xl font-bold">アルバム登録</h4>
+                <form onSubmit={handleSubmit} className="mt-6">
                     <label>
                         <div {...getRootProps()}>
                             <input {...getInputProps()} />
@@ -75,16 +77,29 @@ const CreateAlbum = () => {
                         </div>
                         {image && <p>選択した画像：{image.name}</p>}
                     </label>
-                    <label>アルバム名：
+                    <label className="block mt-3">アルバム名
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
                     {songs.map((song, index) => (
                         <div key={index}>
-                            <label>曲名：
+                            <label className="block mt-3">曲順
+                                <input
+                                    type="number"
+                                    value={song.track_number}
+                                    onChange={(e) => {
+                                        const newSongs = [...songs]
+                                        newSongs[index].track_number = Number(e.target.value)
+                                    }}
+                                    required
+                                    className={`${styles.input} pl-2 w-[40px]`} />
+                            </label>
+
+                            <label className="block mt-3">曲名
                                 <input
                                     type="text"
                                     value={song.title}
@@ -93,33 +108,24 @@ const CreateAlbum = () => {
                                         newSongs[index].title = e.target.value
                                         setSongs(newSongs)
                                     }}
-                                    required />
-                            </label>
-                            <label>曲順：
-                                <input
-                                    type="number"
-                                    value={song.track_number}
-                                    onChange={(e) => {
-                                        const newSongs = [...songs]
-                                        newSongs[index].track_number = Number(e.target.value)
-                                    }}
-                                    required />
+                                    required
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
-                    <button
-                        type="button"
-                        onClick={() => setSongs([...songs, {title: "", track_number: songs.length + 1}])}
-                        disabled={songs.length >= 6}
-                    >
-                        曲を追加
-                    </button>
-                    {songs.length >= 6 && <p>最大６曲までです</p>}
-                    <button>登録</button>
+                    <div>
+                        <button
+                            type="button"
+                            onClick={() => setSongs([...songs, {title: "", track_number: songs.length + 1}])}
+                            disabled={songs.length >= 6}
+                            className={`${button.linkBtn} block mt-2`}
+                        >
+                            曲を追加
+                        </button>
+                        {songs.length >= 6 && <p>最大６曲までです</p>}
+                        <button className={`${button.submitBtn} block mt-6`}>登録</button>
+                    </div>
                 </form>
-                <div>
-                    <p>リンク</p>
-                </div>
             </div>
         </div>
     )
