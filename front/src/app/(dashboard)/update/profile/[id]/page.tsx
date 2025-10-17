@@ -2,6 +2,9 @@
 
 import { api } from "@/lib/axios"
 import { ReadProfile } from "@/lib/ReadProfile"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
+import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -59,33 +62,38 @@ const UpdateProfile = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h3>編集</h3>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
                 <form onSubmit={handleSubmit}>
-                    <label>ホームページ名：
+                    <label className="block">ホームページ名
                         <input
                             type="text"
                             name="homepage_name"
                             value={update.homepage_name}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>ホームページの説明
+                    <label className="block mt-3">ホームページの説明
                         <input
                             type="text"
                             name="description"
                             value={update.description}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>
+                    <label className="block mt-3">ホームページの背景色
                         <input
                             type="color"
                             name="background_color"
                             value={update.background_color}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            className={`${styles.input}`} />
                     </label>
-                    <button>変更</button>
+                    <div className="flex gap-8 mt-6">
+                        <button className={`${button.submitBtn}`}>変更</button>
+                        <Link href={"/customer"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
             </div>
         </div>

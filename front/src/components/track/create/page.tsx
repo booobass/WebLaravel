@@ -100,7 +100,7 @@ const CreateTrack = () => {
                 <h4 className="text-xl font-bold">音源登録</h4>
                 <form onSubmit={handleSubmit} className="mt-6">
                     <label>
-                        <div {...getRootProps()}>
+                        <div {...getRootProps()} className={`${styles.drop}`}>
                             <input {...getInputProps()} />
                             {isDragActive}
                             <p>ここに音源をドロップして下さい</p>
