@@ -2,6 +2,7 @@
 
 import { api } from "@/lib/axios"
 import { ReadAlbum } from "@/lib/ReadAlbum"
+import button from "@/styles/button.module.css"
 import modal from "@/styles/modal.module.css"
 import Image from "next/image"
 import Link from "next/link"
@@ -34,10 +35,10 @@ const EditAlbum = () => {
 
     return (
         <div>
-            <div>
+            <div className="mt-6 pb-6 border-b border-dashed">
+                <h3 className="font-bold text-center">登録したアルバム</h3>
                 {albums.map((a) => (
-                    <div key={a.id}>
-                        <p>{a.title}</p>
+                    <div key={a.id} className="mt-3 justify-items-center">
                         <div>
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
@@ -47,18 +48,20 @@ const EditAlbum = () => {
                                 priority
                                 />
                         </div>
+                        <p className="text-xl mt-3">{a.title}</p>
                         <ul>
                             {a.songs.map((as) => (
                                 <li key={as.id}>{as.track_number}. {as.title}</li>
                             ))}
                         </ul>
-                        <div>
-                            <Link href={`update/album/${a.id}`}>編集</Link>
+                        <div className="mt-3 flex gap-8">
+                            <Link href={`update/album/${a.id}`} className={`${button.linkBtn} block`}>編集</Link>
                             <button
                                 onClick={() => {
                                     setSelectedAlbum(a.id)
                                     setModalOpen(true)
                                 }}
+                                className={`${button.submitBtn}`}
                             >削除</button>
                         </div>
                     </div>

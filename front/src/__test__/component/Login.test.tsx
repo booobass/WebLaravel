@@ -56,7 +56,7 @@ describe("Login Page", () => {
                 password_confirmation: "password123",
             }))
             expect(mockAlert).toHaveBeenCalledWith("ログインしました")
-            expect(mockPush).toHaveBeenCalledWith("/create")
+            expect(mockPush).toHaveBeenCalledWith("/welcome")
         })
     })
 
