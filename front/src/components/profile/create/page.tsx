@@ -1,6 +1,8 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -37,40 +39,43 @@ const CreateProfile = () => {
                 }
             )
             alert("データを登録しました")
-            router.push("/customer")
+            router.push("/create")
         } catch {
             alert("データを登録出来ません")
         }
     }
 
     return (
-        <div>
-            <div>
-                <h2>ホームーページ情報登録</h2>
-                <form onSubmit={handleSubmit}>
-                    <label>ホームページ名：
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
+                <h2 className="text-xl font-bold">ホームーページ情報登録</h2>
+                <form onSubmit={handleSubmit} className="mt-6">
+                    <label className="block">ホームページ名
                         <input
                             type="text"
                             name="homepage_name"
                             value={data.homepage_name}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>ホームページの説明：
+                    <label className="block mt-3">ホームページの説明
                         <input
                             type="text"
                             name="description"
                             value={data.description}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>
+                    <label className="block mt-3">ホームページの背景色
                         <input
                             type="color"
                             name="background_color"
                             value={data.background_color}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            className={`${styles.input}`} />
                     </label>
-                    <button>登録</button>
+                    <button className={`${button.submitBtn} mt-6`}>登録</button>
                 </form>
             </div>
         </div>

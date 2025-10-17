@@ -1,6 +1,8 @@
 "use client"
 
 import { api } from "@/lib/axios"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
 import { useState } from "react"
 
 const CreateGig = () => {
@@ -59,61 +61,67 @@ const CreateGig = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h3>ライブ登録</h3>
-                <form onSubmit={handleSubmit}>
-                    <label>日付：
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
+                <h3 className="text-xl font-bold">ライブ登録</h3>
+                <form onSubmit={handleSubmit} className="mt-6">
+                    <label className="block">日付
                         <input
                             type="date"
                             name="date"
                             value={data.date}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>場所：
+                    <label className="block mt-3">場所
                         <input
                             type="text"
                             name="place"
                             value={data.place}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>オープン：
+                    <label className="block mt-3">オープン
                         <input
                             type="time"
                             name="open_time"
                             value={data.open_time}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>スタート：
+                    <label className="block mt-3">スタート
                         <input
                             type="time"
                             name="start_time"
                             value={data.start_time}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>前売りチケット：
+                    <label className="block mt-3">前売りチケット
                         <input
                             type="text"
                             name="adv_price"
                             value={data.adv_price}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>当日チケット：
+                    <label className="block mt-3">当日チケット
                         <input
                             type="text"
                             name="day_price"
                             value={data.day_price}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
                     {band.map((b, i) => (
                         <div key={i}>
-                            <label>バンド：
+                            <label className="block mt-3">バンド
                                 <input
                                     type="text"
                                     value={b.name}
@@ -121,14 +129,19 @@ const CreateGig = () => {
                                         const newBand = [...band]
                                         newBand[i].name = e.target.value
                                         setBand(newBand)
-                                    }} />
+                                    }}
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setBand([...band, {name: ""}])}>バンドを追加</button>
+                    <button
+                        type="button"
+                        onClick={() => setBand([...band, {name: ""}])}
+                        className={`${button.linkBtn} block mt-2`}>バンドを追加
+                    </button>
                     {dj.map((d, i) => (
                         <div key={i}>
-                            <label>DJ：
+                            <label className="block mt-3">DJ
                                 <input
                                     type="text"
                                     value={d.name}
@@ -136,12 +149,17 @@ const CreateGig = () => {
                                         const newDj = [...dj]
                                         newDj[i].name = e.target.value
                                         setDj(newDj)
-                                    }} />
+                                    }}
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setDj([...dj, {name: ""}])}>DJを追加</button>
-                    <button>登録</button>
+                    <button
+                        type="button"
+                        onClick={() => setDj([...dj, {name: ""}])}
+                        className={`${button.linkBtn} block mt-2`}>DJを追加
+                    </button>
+                    <button className={`${button.submitBtn} block mt-6`}>登録</button>
                 </form>
             </div>
         </div>
