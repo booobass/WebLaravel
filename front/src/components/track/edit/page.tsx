@@ -3,6 +3,7 @@
 import AudioPlayer from "@/components/AudioPlayer"
 import { api } from "@/lib/axios"
 import { ReadTrack } from "@/lib/ReadTrack"
+import button from "@/styles/button.module.css"
 import modal from "@/styles/modal.module.css"
 import Link from "next/link"
 import { useState } from "react"
@@ -34,25 +35,28 @@ const EditTrack = () => {
 
     return (
         <div>
-            <div>
+            <div className="mt-9 pb-6 border-b border-dashed">
+                <h3 className="font-bold text-center">登録した音源</h3>
                 {tracks.map((t) => (
-                    <div
-                        key={t.id}
-                        className={`max-w-[300px] w-full justify-items-center p-3 border-4 border-double rounded-sm bg-[#fefefe]`}
-                    >
-                        <div className="text-center">
-                            <h4 className="text-xl border-b">{t.describe}</h4>
-                            <h3 className="mt-2 text-2xl font-bold">{t.name}</h3>
+                    <div key={t.id} className="mt-6">
+                        <div className={`max-w-[300px] w-full justify-items-center p-3 border-4 border-double rounded-sm bg-[#fefefe]`}>
+                            <div className="text-center">
+                                <h4 className="text-xl border-b">{t.describe}</h4>
+                                <h3 className="mt-2 text-2xl font-bold">{t.name}</h3>
+                            </div>
+                            <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
                         </div>
-                        <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
-                        <div>
-                            <Link href={`/update/track/${t.id}`}>編集</Link>
-                            <button
-                                onClick={() => {
-                                    setSelectedTrack(t.id)
-                                    setModalOpen(true)
-                                }}>削除
-                            </button>
+                        <div className="justify-items-center">
+                            <div className="mt-3 flex gap-8">
+                                <Link href={`/update/track/${t.id}`} className={`${button.linkBtn} block`}>編集</Link>
+                                <button
+                                    onClick={() => {
+                                        setSelectedTrack(t.id)
+                                        setModalOpen(true)
+                                    }}
+                                    className={`${button.submitBtn}`}>削除
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}

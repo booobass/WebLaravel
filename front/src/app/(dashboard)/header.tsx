@@ -13,7 +13,7 @@ const CustomerHeader = () => {
 
     return (
         <div className="wrapper">
-            <div className="flex gap-8">
+            <div className="flex gap-8 items-center">
                 <Link
                     href={slug ? (`/uuu/${slug}`) : ('/create')}
                     target="_blank"

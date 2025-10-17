@@ -2,6 +2,7 @@
 
 import { api } from "@/lib/axios"
 import { ReadGig } from "@/lib/ReadGig"
+import button from "@/styles/button.module.css"
 import modal from "@/styles/modal.module.css"
 import { formatBand, formatDateWithDay, formatDj, formatTime } from "@/utils/formatters"
 import Link from "next/link"
@@ -34,32 +35,38 @@ const EditGig = () => {
 
     return (
         <div>
-            <div>
+            <div className="mt-6 pb-6 border-b border-dashed">
+                <h3 className="font-bold text-center">登録したライブ</h3>
                 {gigs.map((g) => (
-                    <div key={g.id}>
-                        <p>{formatDateWithDay(g.date)}@{g.place}</p>
-                        <div>
-                            <p>{formatBand(g.bands)}</p>
+                    <div key={g.id} className="justify-items-center">
+                        <div className="mt-3">
+                            <p>{formatDateWithDay(g.date)}@{g.place}</p>
+                            <div>
+                                <p>{formatBand(g.bands)}</p>
+                            </div>
+                            <div>
+                                {(!g.djs) ? (null) : (
+                                    <p>{formatDj(g.djs)}</p>
+                                )}
+                                
+                            </div>
+                            <div>
+                                <p>open: {formatTime(g.open_time)} / start: {formatTime(g.start_time)}</p>
+                            </div>
+                            <div>
+                                <p>adv. ¥{g.adv_price} / day. ¥{g.day_price}</p>
+                            </div>
                         </div>
-                        <div>
-                            {(!g.djs) ? (null) : (
-                                <p>{formatDj(g.djs)}</p>
-                            )}
-                            
+                        <div className="mt-3 flex gap-8">
+                            <Link href={`/update/gig/${g.id}`} className={`${button.linkBtn} block`}>編集</Link>
+                            <button
+                                onClick={() => {
+                                    setSeletctedGid(g.id)
+                                    setModalOpen(true)
+                                }}
+                                className={`${button.submitBtn}`}
+                            >削除</button>
                         </div>
-                        <div>
-                            <p>open: {formatTime(g.open_time)} / start: {formatTime(g.start_time)}</p>
-                        </div>
-                        <div className="flex">
-                            <p>adv. ¥{g.adv_price} / day. ¥{g.day_price}</p>
-                        </div>
-                        <Link href={`/update/gig/${g.id}`}>編集</Link>
-                        <button
-                            onClick={() => {
-                                setSeletctedGid(g.id)
-                                setModalOpen(true)
-                            }}
-                        >削除</button>
                     </div>
                 ))}
             </div>
