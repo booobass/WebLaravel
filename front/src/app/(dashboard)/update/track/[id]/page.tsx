@@ -2,6 +2,9 @@
 
 import { api } from "@/lib/axios"
 import { ReadTrack } from "@/lib/ReadTrack"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
+import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
@@ -82,34 +85,38 @@ const UpdateTrack = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h3>編集</h3>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        <div {...getRootProps()}>
+                        <div {...getRootProps()} className={`${styles.drop}`}>
                             <input {...getInputProps()} />
                             {isDragActive}
-                            <p>音源を変更する場合はここにドロップして下さい</p>
+                            <p>音源を変更する場合<br/>ここにドロップして下さい</p>
                         </div>
                     </label>
-                    <label>音源の説明：
+                    <label className="block mt-3">音源の説明
                         <input
                             type="text"
                             name="describe"
                             value={update.describe}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>音源の名前：
+                    <label className="block mt-3">音源の名前
                         <input
                             type="text"
                             name="name"
                             value={update.name}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <button>更新</button>
+                    <div className="flex gap-8 mt-6">
+                        <button className={`${button.submitBtn}`}>更新</button>
+                        <Link href={"/customer"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
             </div>
         </div>

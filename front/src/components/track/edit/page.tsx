@@ -65,8 +65,10 @@ const EditTrack = () => {
                 <div className={`${modal.overlay}`}>
                     <div className={`${modal.modal}`}>
                         <p>本当に削除しますか？</p>
-                        <button onClick={handleDelete}>削除</button>
-                        <button onClick={() => setModalOpen(false)}>キャンセル</button>
+                        <div className="flex justify-around mt-6">
+                            <button onClick={handleDelete} className={button.submitBtn}>削除</button>
+                            <button onClick={() => setModalOpen(false)} className={button.linkBtn}>キャンセル</button>
+                        </div>
                     </div>
                 </div>
             )}

@@ -13,3 +13,9 @@
     background-color: #fafafa;
     display: block;
 }
+
+.drop {
+    border: dashed 2px #666;
+    border-radius: 3px;
+    padding: 8px;
+}

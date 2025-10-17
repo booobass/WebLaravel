@@ -2,7 +2,10 @@
 
 import { api } from "@/lib/axios"
 import { ReadAlbum } from "@/lib/ReadAlbum"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
 import Image from "next/image"
+import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
@@ -87,14 +90,13 @@ const UpdateAlbum = () => {
 
 
     return (
-        <div>
-            <div>
-                <h3>編集</h3>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <p>現在の写真</p>
+                        <p>現在の画像</p>
                         {typeof image === "string" && image && (
-                            <div>
+                            <div className="mt-3">
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${image}`}
                                     alt={`${image}`}
@@ -104,24 +106,36 @@ const UpdateAlbum = () => {
                             </div>
                         )}
                     </div>
-                    <label>
-                        <div {...getRootProps()}>
-                            <input {...getInputProps()} />
+                    <label className="block mt-3">
+                        <div {...getRootProps()} className={`${styles.drop}`}>
+                            <input {...getInputProps()}/>
                             {isDragActive}
-                            <p>ここに画像をドロップして下さい</p>
+                            <p>画像を変更する場合<br/>ここにドロップして下さい</p>
                         </div>
-                        {image && <p>選択した画像：{typeof image === "string" ? image : image?.name}</p>}
+                        {/* {image && <div className="mt-3"><p>選択した画像</p><p>{typeof image === "string" ? image : image?.name}</p></div>} */}
                     </label>
-                    <label>アルバム名：
+                    <label className="block mt-3">アルバム名
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
                     {songs.map((song, index) => (
                         <div key={index}>
-                            <label>曲名：
+                            <label className="block mt-3">曲順
+                                <input
+                                    type="number"
+                                    value={song.track_number}
+                                    onChange={(e) => {
+                                        const newSongs = [...songs]
+                                        newSongs[index].track_number = e.target.value
+                                    }}
+                                    required
+                                    className={`${styles.input} pl-2 w-[40px]`} />
+                            </label>
+                            <label className="block mt-1">曲名
                                 <input
                                     type="text"
                                     value={song.title}
@@ -130,17 +144,8 @@ const UpdateAlbum = () => {
                                         newSongs[index].title = e.target.value
                                         setSongs(newSongs)
                                     }}
-                                    required />
-                            </label>
-                            <label>曲順：
-                                <input
-                                    type="number"
-                                    value={song.track_number}
-                                    onChange={(e) => {
-                                        const newSongs = [...songs]
-                                        newSongs[index].track_number = e.target.value
-                                    }}
-                                    required />
+                                    required
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
@@ -148,11 +153,15 @@ const UpdateAlbum = () => {
                         type="button"
                         onClick={() => setSongs([...songs, {title: "", track_number: String(songs.length + 1)}])}
                         disabled={songs.length >= 6}
+                        className={`${button.linkBtn} block mt-2`}
                     >
                         曲を追加
                     </button>
                     {songs.length >= 6 && <p>最大６曲までです</p>}
-                    <button>更新</button>
+                    <div className="flex gap-8 mt-6">
+                        <button className={`${button.submitBtn}`}>更新</button>
+                        <Link href={"/customer"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
             </div>
         </div>

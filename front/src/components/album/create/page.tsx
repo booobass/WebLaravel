@@ -70,7 +70,7 @@ const CreateAlbum = () => {
                 <h4 className="text-xl font-bold">アルバム登録</h4>
                 <form onSubmit={handleSubmit} className="mt-6">
                     <label>
-                        <div {...getRootProps()}>
+                        <div {...getRootProps()} className={`${styles.drop}`}>
                             <input {...getInputProps()} />
                             {isDragActive}
                             <p>ここに画像をドロップして下さい</p>

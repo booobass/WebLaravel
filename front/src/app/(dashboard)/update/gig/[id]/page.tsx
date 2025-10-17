@@ -2,6 +2,9 @@
 
 import { api } from "@/lib/axios"
 import { ReadGig } from "@/lib/ReadGig"
+import button from "@/styles/button.module.css"
+import styles from "@/styles/form.module.css"
+import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -87,61 +90,66 @@ const UpdateGig = () => {
     }
 
     return (
-        <div>
-            <div>
-                <h3>編集</h3>
+        <div className="wrapper">
+            <div className={`${styles.main}`}>
                 <form onSubmit={handleSubmit}>
-                    <label>日付：
+                    <label>日付
                         <input
                             type="date"
                             name="date"
                             value={update.date}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>場所：
+                    <label className="block mt-3">場所
                         <input
                             type="text"
                             name="place"
                             value={update.place}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>オープン：
+                    <label className="block mt-3">オープン
                         <input
                             type="time"
                             name="open_time"
                             value={update.open_time}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>スタート：
+                    <label className="block mt-3">スタート
                         <input
                             type="time"
                             name="start_time"
                             value={update.start_time}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>前売りチケット：
+                    <label className="block mt-3">前売りチケット
                         <input
                             type="text"
                             name="adv_price"
                             value={update.adv_price}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
-                    <label>当日チケット：
+                    <label className="block mt-3">当日チケット
                         <input
                             type="text"
                             name="day_price"
                             value={update.day_price}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} pl-2`} />
                     </label>
                     {bands.map((b, i) => (
                         <div key={i}>
-                            <label>バンド：
+                            <label className="block mt-3">バンド
                                 <input
                                     type="text"
                                     value={b.name}
@@ -149,14 +157,19 @@ const UpdateGig = () => {
                                         const newBand = [...bands]
                                         newBand[i].name = e.target.value
                                         setBands(newBand)
-                                    }} />
+                                    }}
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setBands([...bands, {name: ""}])}>バンドを追加</button>
+                    <button
+                        type="button"
+                        onClick={() => setBands([...bands, {name: ""}])}
+                        className={`${button.linkBtn} mt-2`}>バンドを追加
+                    </button>
                     {djs.map((d, i) => (
                         <div key={i}>
-                            <label>DJ：
+                            <label className="block mt-3">DJ
                                 <input
                                     type="text"
                                     value={d.name}
@@ -164,12 +177,20 @@ const UpdateGig = () => {
                                         const newDj = [...djs]
                                         newDj[i].name = e.target.value
                                         setDjs(newDj)
-                                    }} />
+                                    }}
+                                    className={`${styles.input} pl-2`} />
                             </label>
                         </div>
                     ))}
-                    <button type="button" onClick={() => setDjs([...djs, {name: ""}])}>DJを追加</button>
-                    <button>登録</button>
+                    <button
+                        type="button"
+                        onClick={() => setDjs([...djs, {name: ""}])}
+                        className={`${button.linkBtn} mt-2`}>DJを追加
+                    </button>
+                    <div className="flex gap-8 mt-6">
+                        <button className={`${button.submitBtn}`}>更新</button>
+                        <Link href={"/customer"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
             </div>
         </div>
