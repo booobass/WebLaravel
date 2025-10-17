@@ -2,6 +2,9 @@
 
 import { useAuth } from "@/context/AuthContext"
 import { api } from "@/lib/axios"
+import styles from "@/styles/auth.module.css"
+import border from "@/styles/border.module.css"
+import button from "@/styles/button.module.css"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -38,7 +41,7 @@ const Login = () => {
             localStorage.setItem("token", token)
             alert("ログインしました")
             login(token)
-            router.push("/customer")
+            router.push("/create")
         } catch {
             alert("ログインできません")
         }
@@ -46,41 +49,44 @@ const Login = () => {
 
     return (
         <div className="wrapper">
-            <div>
-                <h2>ログインページ</h2>
-                <form onSubmit={handleSubmit}>
-                    <label>メールアドレス：
+            <div className={`${styles.main} max-w-[600px] w-full`}>
+                <h2 className={`${border.gray_m} text-xl font-bold`}>ログインページ</h2>
+                <form onSubmit={handleSubmit} className="mt-9">
+                    <label className="block">メールアドレス
                         <input
                             type="text"
                             name="email"
                             value={user.email}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} w-[180px] block`} />
                     </label>
-                    <label>パスワード：
+                    <label className="block mt-3">パスワード
                         <input
                             type="text"
                             name="password"
                             value={user.password}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} w-[180px] block`} />
                     </label>
-                    <label>パスワード確認：
+                    <label className="block mt-3">パスワード確認
                         <input
                             type="text"
                             name="password_confirmation"
                             value={user.password_confirmation}
                             onChange={handleChange}
-                            required />
+                            required
+                            className={`${styles.input} w-[180px] block`} />
                     </label>
                     {user.password === user.password_confirmation ? null : (
-                        <p>パスワードが一致しません</p>
+                        <p className="text-sm text-red-600">パスワードが一致しません</p>
                     )}
-                    <button>ログイン</button>
+                    <div className="mt-6">
+                        <button className={`${button.submitBtn} mr-6`}>ログイン</button>
+                        <Link href={"/"} className={`${button.linkBtn}`}>キャンセル</Link>
+                    </div>
                 </form>
-                <div>
-                    <Link href={"/"}>トップページに戻る</Link>
-                </div>
             </div>
         </div>
     )

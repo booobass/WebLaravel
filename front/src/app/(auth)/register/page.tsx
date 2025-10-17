@@ -41,7 +41,7 @@ const Register = () => {
             router.push("/login")
             console.log(response)
         } catch {
-            alert("ユーザ登録できません")
+            alert("ユーザー登録できません")
         }
     }
 
@@ -68,7 +68,7 @@ const Register = () => {
                                 required
                                 className={`${styles.input} w-[180px] block`} />
                         </label>
-                        <label className="block mt-3">パスワード
+                        <label className="block mt-3">パスワード（８文字以上）
                             <input
                                 type="text"
                                 name="password"
@@ -78,7 +78,7 @@ const Register = () => {
                                 className={`${styles.input} w-[180px] block`} />
                         </label>
                         {user.password.length >= 6 || user.password.length === 0 ? null : (
-                            <p>８文字以上で登録して下さい</p>
+                            <p className="text-sm text-red-600">８文字以上で登録して下さい</p>
                         )}
                         <label className="block mt-3">パスワード確認
                             <input
@@ -90,7 +90,7 @@ const Register = () => {
                                 className={`${styles.input} w-[180px] block`} />
                         </label>
                         {user.password === user.password_confirmation ? null : (
-                            <p>パスワードが一致しません</p>
+                            <p className="text-sm text-red-600">パスワードが一致しません</p>
                         )}
                         <label className="block mt-3">URL
                             <input
@@ -102,7 +102,7 @@ const Register = () => {
                                 className={`${styles.input} w-[180px] block`} />
                         </label>
                     <div className="mt-6">
-                        <button className={`${button.submitBtn} mt-6 mr-6`}>登録</button>
+                        <button className={`${button.submitBtn} mr-6`}>登録</button>
                         <Link href={"/"} className={`${button.linkBtn}`}>キャンセル</Link>
                     </div>
                 </form>
