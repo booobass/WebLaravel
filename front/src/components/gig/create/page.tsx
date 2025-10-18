@@ -3,9 +3,12 @@
 import { api } from "@/lib/axios"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 const CreateGig = () => {
+
+    const router = useRouter()
 
     const [data, setData] = useState({
         date: "",
@@ -55,6 +58,7 @@ const CreateGig = () => {
                 }
             )
             alert("データを登録しました")
+            router.push("/customer")
         } catch {
             alert("データを登録出来ません")
         }

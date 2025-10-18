@@ -5,11 +5,13 @@ import { ReadTrack } from "@/lib/ReadTrack"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 const UpdateTrack = () => {
+
+    const router = useRouter()
 
     const params = useParams()
     const id = params.id as string
@@ -79,6 +81,7 @@ const UpdateTrack = () => {
                 }
             )
             alert("更新しました")
+            router.push("/customer#track")
         } catch {
             alert("更新できません")
         }
