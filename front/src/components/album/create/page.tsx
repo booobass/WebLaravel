@@ -3,14 +3,17 @@
 import { api } from "@/lib/axios"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
+import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 const CreateAlbum = () => {
 
+    const router = useRouter()
+
     const [image, setImage] = useState<File | null>(null)
     const [title, setTitle] = useState("")
-    const [songs, setSongs] = useState([{title: "", track_number: 1}])
+    const [songs, setSongs] = useState([{title: "", track_number: "1"}])
 
     console.log("image", image)
 
@@ -39,11 +42,13 @@ const CreateAlbum = () => {
     const handleSubmit = async (e :React.FormEvent) => {
         e.preventDefault()
         try {
+            const filterSongs = songs.filter(s => s.title.trim() !== "" && s.track_number.trim() !== "")
+
             const formData = new FormData()
             formData.append("title", title)
             if(image) formData.append("image", image)
 
-            songs.forEach((song, index) => {
+            filterSongs.forEach((song, index) => {
                 formData.append(`songs[${index}][title]`, song.title)
                 formData.append(`songs[${index}][track_number]`, String(song.track_number))
             })
@@ -58,6 +63,7 @@ const CreateAlbum = () => {
                 }
             )
             alert("アルバムを登録しました")
+            router.push("/customer")
 
         } catch {
             alert("アルバムを登録出来ません")
@@ -91,11 +97,12 @@ const CreateAlbum = () => {
                                 <input
                                     type="number"
                                     value={song.track_number}
+                                    min={1}
                                     onChange={(e) => {
                                         const newSongs = [...songs]
-                                        newSongs[index].track_number = Number(e.target.value)
+                                        newSongs[index].track_number = e.target.value
+                                        setSongs(newSongs)
                                     }}
-                                    required
                                     className={`${styles.input} pl-2 w-[40px]`} />
                             </label>
 
@@ -108,7 +115,6 @@ const CreateAlbum = () => {
                                         newSongs[index].title = e.target.value
                                         setSongs(newSongs)
                                     }}
-                                    required
                                     className={`${styles.input} pl-2`} />
                             </label>
                         </div>
@@ -116,7 +122,7 @@ const CreateAlbum = () => {
                     <div>
                         <button
                             type="button"
-                            onClick={() => setSongs([...songs, {title: "", track_number: songs.length + 1}])}
+                            onClick={() => setSongs([...songs, {title: "", track_number: String(songs.length + 1)}])}
                             disabled={songs.length >= 6}
                             className={`${button.linkBtn} block mt-2`}
                         >

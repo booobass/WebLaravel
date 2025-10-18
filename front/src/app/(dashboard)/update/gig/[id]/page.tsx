@@ -5,10 +5,12 @@ import { ReadGig } from "@/lib/ReadGig"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const UpdateGig = () => {
+
+    const router = useRouter()
 
     const params = useParams()
     const id = params.id as string
@@ -84,6 +86,7 @@ const UpdateGig = () => {
                 }
             )
             alert("更新しました")
+            router.push("/customer#gig")
         } catch {
             alert("更新できません")
         }

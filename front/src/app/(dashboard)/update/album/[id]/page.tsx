@@ -6,11 +6,13 @@ import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 const UpdateAlbum = () => {
+
+    const router = useRouter()
 
     const params = useParams()
     const id = params.id as string
@@ -66,10 +68,12 @@ const UpdateAlbum = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
+            const filterSongs = songs.filter(s => s.title.trim() !== "" && s.track_number.trim() !== "")
+
             const formData = new FormData()
             formData.append("title", title)
             if(image instanceof File) formData.append("image", image)
-            songs.forEach((song, index) => {
+            filterSongs.forEach((song, index) => {
                 formData.append(`songs[${index}][title]`, song.title)
                 formData.append(`songs[${index}][track_number]`, song.track_number)
             })
@@ -83,6 +87,7 @@ const UpdateAlbum = () => {
             )
             alert("更新しました")
             console.log(response.data)
+            router.push("/customer#album")
         } catch {
             alert("更新できません")
         }
@@ -128,11 +133,12 @@ const UpdateAlbum = () => {
                                 <input
                                     type="number"
                                     value={song.track_number}
+                                    min={1}
                                     onChange={(e) => {
                                         const newSongs = [...songs]
                                         newSongs[index].track_number = e.target.value
+                                        setSongs(newSongs)
                                     }}
-                                    required
                                     className={`${styles.input} pl-2 w-[40px]`} />
                             </label>
                             <label className="block mt-1">曲名
@@ -144,7 +150,6 @@ const UpdateAlbum = () => {
                                         newSongs[index].title = e.target.value
                                         setSongs(newSongs)
                                     }}
-                                    required
                                     className={`${styles.input} pl-2`} />
                             </label>
                         </div>

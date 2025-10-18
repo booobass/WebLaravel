@@ -3,10 +3,13 @@
 import { api } from "@/lib/axios"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
+import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 const CreateTrack = () => {
+
+    const router = useRouter()
 
     const [data, setData] = useState({
         name: "",
@@ -89,6 +92,7 @@ const CreateTrack = () => {
                 }
             )
             alert("音源を登録しました")
+            router.push("/customer")
         } catch {
             alert("音源を登録できませんでした。");
         }
