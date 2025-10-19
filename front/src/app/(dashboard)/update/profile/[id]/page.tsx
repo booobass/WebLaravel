@@ -5,10 +5,12 @@ import { ReadProfile } from "@/lib/ReadProfile"
 import button from "@/styles/button.module.css"
 import styles from "@/styles/form.module.css"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const UpdateProfile = () => {
+
+    const router = useRouter()
 
     const params = useParams()
     const id = params.id as string
@@ -56,6 +58,7 @@ const UpdateProfile = () => {
                 }
             )
             alert("更新しました")
+            router.push("/customer")
         } catch {
             alert("更新できません")
         }
