@@ -56,7 +56,7 @@ test('fails to create album with invalid data', function () {
     ]);
 });
 
-test('user can get their own albums', function () {
+test('user can fetch own albums', function () {
     $album1 = Album::factory()->for($this->user)->create();
     $album2 = Album::factory()->for($this->user)->create();
 
@@ -68,7 +68,7 @@ test('user can get their own albums', function () {
     $response->assertJsonCount(2, 'albums');
 });
 
-test('can get albums by user slug', function () {
+test('can fetch albums of another user by slug', function () {
     $user = User::factory()->create(['slug' => 'test-user']);
     $album = Album::factory()->for($user)->create();
 
