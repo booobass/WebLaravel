@@ -4,7 +4,7 @@ import EditAlbum from "@/components/album/edit/page"
 import EditGig from "@/components/gig/edit/page"
 import EditProfile from "@/components/profile/edit/page"
 import EditTrack from "@/components/track/edit/page"
-import { ScrollHash } from "@/lib/ScrollHasj"
+import { ScrollHash } from "@/lib/ScrollHash"
 
 const Customer = () => {
 
