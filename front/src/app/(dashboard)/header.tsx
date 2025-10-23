@@ -27,7 +27,9 @@ const CustomerHeader = () => {
                     href={"/customer"}
                     className={`${pathname === "/customer" ? "bg-gray-300" : ""} border p-2 rounded hover:bg-gray-200`}>登録情報の確認
                 </Link>
-                <LogoutButton />
+                <div className="border p-2 rounded hover:bg-gray-200">
+                    <LogoutButton />
+                </div>
             </div>
         </div>
     )

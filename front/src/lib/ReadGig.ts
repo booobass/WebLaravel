@@ -8,6 +8,7 @@ export const ReadGig = () => {
 
     const [gigs, setGigs] = useState<GigType[]>([])
 
+
     const fetchGig = useCallback(async () => {
         try {
             const response = await api.get("/api/gigs",

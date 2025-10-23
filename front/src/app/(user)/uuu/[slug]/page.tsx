@@ -47,11 +47,11 @@ const MyWebPage = () => {
         if(!data) return <p>no data available</p>
     return (
         <div
-            className={`justify-items-center`}
+            className={`justify-items-center pt-8`}
             style={{ backgroundColor: data.profiles[0].background_color }}
         >
-            <h1>{data.profiles[0].homepage_name}</h1>
-            <p>{data.profiles[0]?.description}</p>
+            <h1 className={`text-3xl font-bolod`}>{data.profiles[0].homepage_name}</h1>
+            <p className="mt-3 border-b">{data.profiles[0]?.description}</p>
             <ShowAlbum />
             <ShowTrack />
             <ShowGig />
