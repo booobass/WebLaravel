@@ -2,7 +2,6 @@
 
 import { api } from "@/lib/axios"
 import styles from "@/styles/auth.module.css"
-import border from "@/styles/border.module.css"
 import button from "@/styles/button.module.css"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -46,9 +45,8 @@ const Register = () => {
     }
 
     return (
-        <div className="wrapper">
-            <div className={`${styles.main} max-w-[600px] w-full`}>
-                <h2 className={`${border.gray_m} text-xl font-bold`}>ユーザー登録ページ</h2>
+        <div>
+            <div>
                 <form onSubmit={handleSubmit} className={`mt-9`}>
                         <label className="block">ユーザー名
                             <input
