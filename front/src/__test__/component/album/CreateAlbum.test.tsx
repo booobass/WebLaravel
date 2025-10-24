@@ -24,7 +24,7 @@ describe("CreateAlbum Component", () => {
         jest.clearAllMocks()
     })
 
-    it("フォーム入力と送信でAPIが呼ばれる", async () => {
+    test("フォーム入力と送信でAPIが呼ばれる", async () => {
         render(<CreateAlbum />)
 
         fireEvent.change(screen.getByLabelText("アルバム名"), {target: {value: "My Album"}})
@@ -46,7 +46,7 @@ describe("CreateAlbum Component", () => {
 
     })
 
-    it("API失敗時にアラートが出る", async () => {
+    test("API失敗時にアラートが出る", async () => {
         ;(api.post as jest.Mock).mockRejectedValueOnce(new Error("fail"))
 
         render(<CreateAlbum />)
