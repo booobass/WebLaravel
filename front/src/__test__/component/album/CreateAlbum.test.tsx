@@ -15,7 +15,7 @@ describe("CreateAlbum Component", () => {
     const mockPush = jest.fn()
 
     beforeEach(() => {
-        ;(api.post as jest.Mock).mockResolvedValue({date: {}})
+        ;(api.post as jest.Mock).mockResolvedValue({data: {}})
         ;(useRouter as jest.Mock).mockReturnValue({push: mockPush})
         jest.spyOn(window, "alert").mockImplementation(() => {})
     })

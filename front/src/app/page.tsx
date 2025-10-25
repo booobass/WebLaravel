@@ -7,9 +7,9 @@ const Home = () => {
 
   return (
     <div className="wrapper">
-      <h1 className="text-3xl font-bold">UUU</h1>
+      <h1 className="text-4xl font-bold tracking-widest">UUU</h1>
       <p className="mt-2 border-b">ホームページ作成アプリ</p>
-      <div className="mt-8 flex gap-12">
+      <div className="mt-8 flex gap-12 max-md:flex-col">
         <div className="text-center text-gray-600 tracking-wider">
           <p className="text-3xl"><span className="text-5xl font-bold ">U</span>sers{"　"}can{"　"}<span className="text-5xl font-bold ">U</span>pload</p>
           <p className="text-3xl">their{"　"}<span className="text-5xl font-bold ">U</span>nique{"　"}bands</p>
