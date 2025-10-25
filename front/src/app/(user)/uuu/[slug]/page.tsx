@@ -43,8 +43,10 @@ const MyWebPage = () => {
             fetchProfile()
         }, [slug])
     
-        if(loading) return <p>loading...</p>
-        if(!data) return <p>no data available</p>
+        if(loading) return <p className="flex justify-center items-center h-screen text-xl font-bold bg-gray-100">loading...</p>
+        if(!data) return <p className="flex justify-center items-center h-screen text-xl font-bold bg-gray-100">no data available</p>
+        if (!data.profiles || data.profiles.length === 0) return <p className="flex justify-center items-center h-screen text-xl font-bold bg-gray-100">ホームページ情報を登録して下さい。</p>
+
     return (
         <div
             className={`justify-items-center pt-8`}

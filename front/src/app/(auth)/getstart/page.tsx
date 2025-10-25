@@ -7,7 +7,7 @@ import { useState } from "react"
 
 const GetStarted = () => {
 
-    const [view, setView] = useState<"log" | "reg">("log")
+    const [view, setView] = useState<"log" | "reg">("reg")
     return (
         <div className="wrapper">
             <div className={`${styles.main}`}>
