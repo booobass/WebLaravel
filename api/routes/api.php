@@ -21,7 +21,8 @@ Route::get('/csrf-token', function (Request $request) {
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]); // CSRFチェックを無効化
+    ->middleware('guest');
+    // ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]); // CSRFチェックを無効化
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
