@@ -29,7 +29,7 @@ const Register = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            await api.get('/sanctum/csrf-cookie')
+            // await api.get('/sanctum/csrf-cookie')
             const response = await api.post("/api/register", {
                 name: user.name,
                 email: user.email,
@@ -37,6 +37,8 @@ const Register = () => {
                 password_confirmation: user.password_confirmation,
                 slug: user.slug
             })
+            const token = response.data.token
+            localStorage.setItem("auth_token", token)
             alert("ユーザー登録しました")
             router.push("/login")
             console.log(response)
