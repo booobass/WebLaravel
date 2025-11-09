@@ -30,14 +30,17 @@ const Register = () => {
         e.preventDefault()
         try {
             await api.get('/sanctum/csrf-cookie')
-            const { data } = await api.get('/api/csrf-token')
-            api.defaults.headers.common['X-XSRF-TOKEN'] = data.csrfToken;
+            const token = await api.get('/api/csrf-token')
             const response = await api.post("/api/register", {
                 name: user.name,
                 email: user.email,
                 password: user.password,
                 password_confirmation: user.password_confirmation,
                 slug: user.slug
+            }, {
+                headers: {
+                    "X-CSRF-TOKEN": token.data.csrf_token
+                }
             })
             alert("ユーザー登録しました")
             router.push("/login")
