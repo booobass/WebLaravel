@@ -30,7 +30,9 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            // await api.get('/sanctum/csrf-cookie')
+            await api.get('/sanctum/csrf-cookie')
+            const { data } = await api.get('/csrf-token')
+            api.defaults.headers.common['X-XSRF-TOKEN'] = data.csrfToken;
             const response = await api.post("/api/login", {
                 email: user.email,
                 password: user.password,

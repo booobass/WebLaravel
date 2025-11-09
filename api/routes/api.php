@@ -11,6 +11,15 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/csrf-token', function () {
+//     $token = csrf_token();
+//     return response()->json(['csrf_token' => $token]);
+// });
+
+Route::get('/csrf-token', function (Request $request) {
+    return response()->json(['csrfToken' => csrf_token()]);
+});
+
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]); // CSRFチェックを無効化
 
