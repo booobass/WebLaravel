@@ -31,8 +31,6 @@ const Login = () => {
         e.preventDefault()
         try {
             await api.get('/sanctum/csrf-cookie')
-            const { data } = await api.get("/api/csrf-token")
-            api.defaults.headers.common['X-XSRF-TOKEN'] = data.csrfToken;
             const response = await api.post("/api/login", {
                 email: user.email,
                 password: user.password,

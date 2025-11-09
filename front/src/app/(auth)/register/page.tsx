@@ -30,8 +30,6 @@ const Register = () => {
         e.preventDefault()
         try {
             await api.get('/sanctum/csrf-cookie')
-            const res = await api.get("/api/csrf-token")
-            api.defaults.headers.common['X-XSRF-TOKEN'] = res.data.csrfToken;
             const response = await api.post("/api/register", {
                 name: user.name,
                 email: user.email,
