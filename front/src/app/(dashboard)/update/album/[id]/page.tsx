@@ -77,10 +77,11 @@ const UpdateAlbum = () => {
                 formData.append(`songs[${index}][title]`, song.title)
                 formData.append(`songs[${index}][track_number]`, String(song.track_number))
             })
-            const response = await api.patch(`/api/album/${id}`,
+            const response = await api.post(`/api/album/${id}`,
                 formData,
                 {
                     headers: {
+                        'X-HTTP-Method-Override': 'PATCH',
                         "Authorization": `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "multipart/form-data"
                     }

@@ -77,7 +77,7 @@ describe("UpdateAlbum", () => {
         ],
         })
 
-        ;(api.patch as jest.Mock).mockResolvedValue({ data: { success: true } })
+        ;(api.post as jest.Mock).mockResolvedValue({ data: { success: true } })
 
         render(<UpdateAlbum />)
 
@@ -89,11 +89,11 @@ describe("UpdateAlbum", () => {
         await userEvent.click(button)
 
         await waitFor(() => {
-        expect(api.patch).toHaveBeenCalledTimes(1)
+        expect(api.post).toHaveBeenCalledTimes(1)
         })
 
         // API呼び出し内容を確認
-        const [url, formData] = (api.patch as jest.Mock).mock.calls[0]
+        const [url, formData] = (api.post as jest.Mock).mock.calls[0]
         expect(url).toBe("/api/album/1")
         expect(formData.get("title")).toBe("Updated Title")
 
