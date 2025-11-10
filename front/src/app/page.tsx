@@ -21,7 +21,7 @@ const Home = () => {
         </div>
       </div>
       <footer className="mt-12 p-4 bg-gray-100 border rounded-lg">
-        <p>http://localhost:3000/uuu/**ここにオリジナルのURLを登録出来ます**
+        <p>https://*********/uuu/**ここにオリジナルのURLを登録出来ます**
         </p>
         <p>現在、ニュース機能を作成中</p>
       </footer>
