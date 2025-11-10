@@ -75,7 +75,7 @@ const UpdateAlbum = () => {
             if(image instanceof File) formData.append("image", image)
             filterSongs.forEach((song, index) => {
                 formData.append(`songs[${index}][title]`, song.title)
-                formData.append(`songs[${index}][track_number]`, song.track_number)
+                formData.append(`songs[${index}][track_number]`, String(song.track_number))
             })
             const response = await api.patch(`/api/album/${id}`,
                 formData,
@@ -117,7 +117,7 @@ const UpdateAlbum = () => {
                             {isDragActive}
                             <p>画像を変更する場合<br/>ここにドロップして下さい</p>
                         </div>
-                        {/* {image && <div className="mt-3"><p>選択した画像</p><p>{typeof image === "string" ? image : image?.name}</p></div>} */}
+                        {image && <div className="mt-3"><p>選択した画像</p><p>{typeof image === "string" ? image : image?.name}</p></div>}
                     </label>
                     <label className="block mt-3">アルバム名
                         <input
