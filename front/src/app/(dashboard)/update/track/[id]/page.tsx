@@ -74,10 +74,14 @@ const UpdateTrack = () => {
         formData.append("describe", update.describe)
         if(audio instanceof File) formData.append("audio_path", audio)
         try {
-            await api.patch(`/api/track/${id}`,
+            await api.post(`/api/track/${id}`,
                 formData,
                 {
-                    headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
+                    headers: {
+                        'X-HTTP-Method-Override': 'PATCH',
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "multipart/form-data"
+                    }
                 }
             )
             alert("更新しました")
