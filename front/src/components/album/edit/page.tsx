@@ -41,35 +41,41 @@ const EditAlbum = () => {
         <div>
             <div className="mt-6 pb-6 border-b border-dashed">
                 <h3 className="font-bold text-center">登録したアルバム</h3>
-                {albums.map((a) => (
-                    <div key={a.id} className="mt-3 justify-items-center">
-                        <div>
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
-                                alt={a.title}
-                                width={80}
-                                height={80}
-                                priority
-                                />
-                        </div>
-                        <p className="text-xl mt-3">{a.title}</p>
-                        <ul>
-                            {a.songs.map((as) => (
-                                <li key={as.id}>{as.track_number}. {as.title}</li>
-                            ))}
-                        </ul>
-                        <div className="mt-3 flex gap-8">
-                            <Link href={`update/album/${a.id}`} className={`${button.linkBtn} block`}>編集</Link>
-                            <button
-                                onClick={() => {
-                                    setSelectedAlbum(a.id)
-                                    setModalOpen(true)
-                                }}
-                                className={`${button.submitBtn}`}
-                            >削除</button>
-                        </div>
+                {albums.length === 0 ? (
+                    <p>登録されていません</p>
+                ) : (
+                    <div>
+                        {albums.map((a) => (
+                            <div key={a.id} className="mt-3 justify-items-center">
+                                <div>
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
+                                        alt={a.title}
+                                        width={80}
+                                        height={80}
+                                        priority
+                                        />
+                                </div>
+                                <p className="text-xl mt-3">{a.title}</p>
+                                <ul>
+                                    {a.songs.map((as) => (
+                                        <li key={as.id}>{as.track_number}. {as.title}</li>
+                                    ))}
+                                </ul>
+                                <div className="mt-3 flex gap-8">
+                                    <Link href={`update/album/${a.id}`} className={`${button.linkBtn} block`}>編集</Link>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedAlbum(a.id)
+                                            setModalOpen(true)
+                                        }}
+                                        className={`${button.submitBtn}`}
+                                    >削除</button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                )}
             </div>
             {modalOpen && (
                 <div className={`${modal.overlay}`}>

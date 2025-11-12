@@ -95,9 +95,7 @@ const UpdateAlbum = () => {
         }
     }
 
-    if (loading) return <p>Loading...</p>
-    if (!singleAlbum) return <p>no data available</p>
-
+    if (loading) return <p className="flex justify-center items-center h-screen text-xl font-bold bg-gray-100">Loading...</p>
 
     return (
         <div className="wrapper">
