@@ -7,9 +7,11 @@ import { api } from "./axios"
 export const ReadAlbum = () => {
 
     const [albums, setAlbums] = useState<AlbumType[]>([])
+    const [loading, setLoading] = useState(true)
 
     const fetchAlbum = useCallback(async () => {
         try {
+            setLoading(true)
             const response = await api.get("/api/albums",
                 {
                     headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
@@ -18,6 +20,8 @@ export const ReadAlbum = () => {
             setAlbums(response.data.albums)
         } catch {
             alert("データを取得できません")
+        } finally {
+            setLoading(false)
         }
     }, []) 
     
@@ -25,5 +29,5 @@ export const ReadAlbum = () => {
         fetchAlbum()
     }, [fetchAlbum])
 
-    return {albums, fetchAlbum}
+    return {albums, fetchAlbum, loading}
 }

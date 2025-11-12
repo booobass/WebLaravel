@@ -17,7 +17,7 @@ const UpdateAlbum = () => {
     const params = useParams()
     const id = params.id as string
 
-    const {albums} = ReadAlbum()
+    const {albums, loading} = ReadAlbum()
 
     const singleAlbum = albums.find(e => String(e.id) === id)
 
@@ -94,6 +94,8 @@ const UpdateAlbum = () => {
             alert("更新できません")
         }
     }
+
+    if (loading) return <p className="flex justify-center items-center h-screen text-xl font-bold bg-gray-100">Loading...</p>
 
 
     return (
