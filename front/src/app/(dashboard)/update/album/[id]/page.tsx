@@ -106,7 +106,7 @@ const UpdateAlbum = () => {
                         {typeof image === "string" && image && (
                             <div className="mt-3">
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/storage/images/${image}`}
+                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${image}`}
                                     alt={`${image}`}
                                     width={80}
                                     height={80}

@@ -49,7 +49,7 @@ const EditAlbum = () => {
                             <div key={a.id} className="mt-3 justify-items-center">
                                 <div>
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/storage/images/${a.image}`}
+                                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
                                         alt={a.title}
                                         width={80}
                                         height={80}
