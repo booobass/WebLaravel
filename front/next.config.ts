@@ -7,12 +7,12 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "8000",
-        pathname: '/storage/images/**'
+        pathname: '/**'
       },
       {
         protocol: "https",
         hostname: "weblaravel-production-30a4.up.railway.app",
-        pathname: "/storage/images/**",
+        pathname: "/**",
       }
     ]
   }
