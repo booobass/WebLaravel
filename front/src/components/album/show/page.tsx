@@ -71,7 +71,7 @@ const ShowAlbum = () => {
                                     <div key={a.id} className={styles.slide}>
                                         <div>
                                             <Image
-                                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/view-image/images/${a.image}`}
+                                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${a.image}`}
                                                 alt={a.title}
                                                 width={220}
                                                 height={220}

@@ -86,4 +86,5 @@ Route::get('/view-image/{filename}', function ($filename) {
     // MIMEタイプとファイル内容をレスポンスとして返す
     return Response::make($file, 200)->header('Content-Type', $type);
 
-})->name('view.image');
+})->name('view.image')
+    ->withoutMiddleware([\Illuminate\Session\Middleware\StartSession::class, \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class]);
