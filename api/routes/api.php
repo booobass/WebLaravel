@@ -9,7 +9,9 @@ use App\Http\Controllers\SongController;
 use App\Http\Controllers\TrackController;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Route::get('/csrf-token', function () {
 //     $token = csrf_token();
@@ -57,29 +59,31 @@ Route::get('/uuu/{slug}/tracks', [TrackController::class, 'userTracks']);
 Route::get('/uuu/{slug}/gigs', [GigController::class, 'userGigs']);
 Route::get('/uuu/{slug}/profiles', [ProfileController::class, 'userProfiles']);
 
-// Route::get('/view-image/{filename}', function ($filename) {
-//     // ファイルが存在するか確認
-//     if (! Storage::disk('public')->exists($filename)) {
+
+
+// Route::get('/view-image/{path}', function ($path) {
+//     if (! Storage::disk('public')->exists($path)) {
 //         abort(404);
 //     }
+//     $file = Storage::disk('public')->get($path);
+//     $type = Storage::disk('public')->mimeType($path);
 
-//     // ファイルを読み込み
-//     $file = Storage::disk('public')->get($filename);
-
-//     // MIMEタイプを推測
-//     $type = Storage::disk('public')->mimeType($filename);
-
-//     // MIMEタイプとファイル内容をレスポンスとして返す
 //     return Response::make($file, 200)->header('Content-Type', $type);
+// })->where('path', '.*');
 
-// })->name('view.image');
-
-Route::get('/view-image/{path}', function ($path) {
-    if (! Storage::disk('public')->exists($path)) {
+Route::get('/view-image/{filename}', function ($filename) {
+    // ファイルが存在するか確認
+    if (! Storage::disk('public')->exists($filename)) {
         abort(404);
     }
-    $file = Storage::disk('public')->get($path);
-    $type = Storage::disk('public')->mimeType($path);
 
+    // ファイルを読み込み
+    $file = Storage::disk('public')->get($filename);
+
+    // MIMEタイプを推測
+    $type = Storage::disk('public')->mimeType($filename);
+
+    // MIMEタイプとファイル内容をレスポンスとして返す
     return Response::make($file, 200)->header('Content-Type', $type);
-})->where('path', '.*');
+
+})->name('view.image');
