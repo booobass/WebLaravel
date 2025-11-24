@@ -24,6 +24,7 @@ export type TrackType = {
     name: string;
     describe: string;
     audio_path: string;
+    audio_url: string;
 }
 
 export type BandType = {

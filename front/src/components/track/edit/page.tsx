@@ -44,7 +44,7 @@ const EditTrack = () => {
                                 <h4 className="text-xl border-b">{t.describe}</h4>
                                 <h3 className="mt-2 text-2xl font-bold">{t.name}</h3>
                             </div>
-                            <AudioPlayer src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tracks/${t.audio_path}`} />
+                            <AudioPlayer src={t.audio_url} />
                         </div>
                         <div className="justify-items-center">
                             <div className="mt-3 flex gap-8">
