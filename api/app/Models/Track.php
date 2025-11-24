@@ -19,6 +19,8 @@ class Track extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected $appends = ['audio_url'];
+
     protected function getAudioUrlAttribute()
     {
         if (!$this->audio_path) {
