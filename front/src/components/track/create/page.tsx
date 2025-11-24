@@ -17,6 +17,7 @@ const CreateTrack = () => {
     })
     const [audio, setAudio] = useState<File | null>(null)
     const [trackCount, setTrackCount] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchTrack = async () => {
@@ -77,6 +78,7 @@ const CreateTrack = () => {
         }
         
         try {
+            setLoading(true)
             const formData = new FormData()
             formData.append("name", data.name)
             formData.append("describe", data.describe)
@@ -95,6 +97,8 @@ const CreateTrack = () => {
             router.push("/customer")
         } catch {
             alert("音源を登録できませんでした。");
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -129,7 +133,10 @@ const CreateTrack = () => {
                             required
                             className={`${styles.input} pl-2`} />
                     </label>
-                    <button className={`${button.submitBtn} block mt-6`}>登録</button>
+                    <button
+                        className={`${button.submitBtn} block mt-6`}
+                        disabled={loading}
+                    >{loading ? "登録中..." : "登録"}</button>
                 </form>
             </div>
         </div>
