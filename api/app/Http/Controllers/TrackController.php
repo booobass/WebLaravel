@@ -59,8 +59,8 @@ class TrackController extends Controller
             'audio_path' => ['required', 'file', 'mimes:mp3,wav,m4a', 'max:8480'] //8MBまで
         ]);
 
-        $path = $request->file('audio_path')->store('tracks', 'public');
-        $validated['audio_path'] = basename($path);
+        $path = $request->file('audio_path')->store('tracks', 's3');
+        $validated['audio_path'] = $path;
 
         $track = new Track($validated);
         $track->user_id = Auth::user()->id;
@@ -98,12 +98,12 @@ class TrackController extends Controller
         ]);
 
         if ($request->hasFile('audio_path')) {
-            if($track->audio_path && Storage::disk('public')->exists('tracks/' . $track->audio_path)) {
-                Storage::disk('public')->delete('tracks/' . $track->audio_path);
+            if($track->audio_path && Storage::disk('s3')->exists($track->audio_path)) {
+                Storage::disk('s3')->delete($track->audio_path);
             }
 
-            $path = $request->file('audio_path')->store('tracks', 'public');
-            $validated['audio_path'] = basename($path);
+            $path = $request->file('audio_path')->store('tracks', 's3');
+            $validated['audio_path'] = $path;
         } else {
             $validated['audio_path'] = $track->audio_path;
         }
@@ -121,7 +121,7 @@ class TrackController extends Controller
      */
     public function destroy(Track $track)
     {
-        Storage::disk('public')->delete('tracks/' . $track->audio_path);
+        Storage::disk('s3')->delete($track->audio_path);
 
         $track->delete();
 
