@@ -35,7 +35,8 @@ describe("UpdateAlbum", () => {
                     songs: [
                         {title: "Song A", track_number: 1},
                         {title: "Song B", track_number: 2}
-                    ]
+                    ],
+                    image_url: ""
                 }
             ]
         })
@@ -73,6 +74,7 @@ describe("UpdateAlbum", () => {
             title: "Old Title",
             image: "http://old.png",
             songs: [{ title: "Old Song", track_number: 1 }],
+            image_url: ""
             },
         ],
         })

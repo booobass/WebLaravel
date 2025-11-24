@@ -16,6 +16,7 @@ export type AlbumType = {
     title: string;
     image: string;
     songs: SongType[]
+    image_url: string;
 }
 
 export type TrackType = {

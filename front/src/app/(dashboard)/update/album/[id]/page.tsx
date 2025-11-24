@@ -25,6 +25,7 @@ const UpdateAlbum = () => {
 
     const [title, setTitle] = useState("")
     const [image, setImage] = useState<File | string | null>(null)
+    const [url, setUrl] = useState<string | null>(null)
     const [songs, setSongs] = useState([{title: "", track_number: ""}])
 
     console.log("upsong", songs)
@@ -34,6 +35,7 @@ const UpdateAlbum = () => {
         if(singleAlbum) {
             setTitle(singleAlbum.title)
             setImage(singleAlbum.image)
+            setUrl(singleAlbum.image_url)
             setSongs(
                 singleAlbum.songs.map((s) => ({
                     title: s.title,
@@ -106,7 +108,7 @@ const UpdateAlbum = () => {
                         {typeof image === "string" && image && (
                             <div className="mt-3">
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/images/${image}`}
+                                    src={`${url}`}
                                     alt={`${image}`}
                                     width={80}
                                     height={80}
