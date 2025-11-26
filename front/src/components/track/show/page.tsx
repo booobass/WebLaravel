@@ -28,7 +28,6 @@ const ShowTrack = () => {
             try {
                 const response = await api.get(`/api/uuu/${slug}/tracks`)
                 setData(response.data)
-                console.log("track", response.data)
             } catch {
                 alert("データを取得出来ません")
             } finally {

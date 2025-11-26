@@ -7,7 +7,6 @@ import { api } from "./axios"
 export const ReadProfile = () => {
 
     const [prof, setProf] = useState<ProfileType[]>([])
-    console.log("prof", prof)
 
     useEffect(() => {
         const fetchProf = async () => {

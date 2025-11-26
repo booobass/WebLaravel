@@ -27,7 +27,6 @@ const CreateTrack = () => {
                         headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
                     }
                 )
-                console.log("data", response.data.tracks.length)
                 setTrackCount(response.data.tracks.length)
             } catch {
                 alert('トラックデータ取得できません')
@@ -36,7 +35,6 @@ const CreateTrack = () => {
         fetchTrack()
     }, [])
 
-    console.log("audio", audio)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({

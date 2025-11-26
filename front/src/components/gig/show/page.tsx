@@ -29,7 +29,6 @@ const ShowGig = () => {
             try {
                 const response = await api.get(`/api/uuu/${slug}/gigs`)
                 setData(response.data)
-                console.log("gig", response.data)
             } catch {
                 alert("データを取得出来ません")
             } finally {

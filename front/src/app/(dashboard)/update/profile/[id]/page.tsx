@@ -25,7 +25,6 @@ const UpdateProfile = () => {
         background_color: ""
     })
 
-    console.log("up", update)
     useEffect(() => {
         if(singleProf) {
             setUpdate({
