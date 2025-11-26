@@ -21,15 +21,12 @@ const UpdateAlbum = () => {
 
     const singleAlbum = albums.find(e => String(e.id) === id)
 
-    console.log("sA", singleAlbum)
 
     const [title, setTitle] = useState("")
     const [image, setImage] = useState<File | string | null>(null)
     const [url, setUrl] = useState<string | null>(null)
     const [songs, setSongs] = useState([{title: "", track_number: ""}])
 
-    console.log("upsong", songs)
-    console.log("upimage", image)
 
     useEffect(() => {
         if(singleAlbum) {
@@ -79,7 +76,7 @@ const UpdateAlbum = () => {
                 formData.append(`songs[${index}][title]`, song.title)
                 formData.append(`songs[${index}][track_number]`, String(song.track_number))
             })
-            const response = await api.post(`/api/album/${id}`,
+            await api.post(`/api/album/${id}`,
                 formData,
                 {
                     headers: {
@@ -90,7 +87,6 @@ const UpdateAlbum = () => {
                 }
             )
             alert("更新しました")
-            console.log(response.data)
             router.push("/customer#album")
         } catch {
             alert("更新できません")

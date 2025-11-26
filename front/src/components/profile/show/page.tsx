@@ -20,7 +20,6 @@ const ShowProfile = () => {
     const [data, setData] = useState<UserProfile | null>(null)
     const [loading, setLoading] = useState(true)
 
-    console.log("prof", data)
 
 
     useEffect(() => {

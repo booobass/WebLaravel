@@ -61,30 +61,3 @@ Route::get('/uuu/{slug}/profiles', [ProfileController::class, 'userProfiles']);
 
 
 
-// Route::get('/view-image/{path}', function ($path) {
-//     if (! Storage::disk('public')->exists($path)) {
-//         abort(404);
-//     }
-//     $file = Storage::disk('public')->get($path);
-//     $type = Storage::disk('public')->mimeType($path);
-
-//     return Response::make($file, 200)->header('Content-Type', $type);
-// })->where('path', '.*');
-
-Route::get('/view-image/{filename}', function ($filename) {
-    // ファイルが存在するか確認
-    if (! Storage::disk('public')->exists($filename)) {
-        abort(404);
-    }
-
-    // ファイルを読み込み
-    $file = Storage::disk('public')->get($filename);
-
-    // MIMEタイプを推測
-    $type = Storage::disk('public')->mimeType($filename);
-
-    // MIMEタイプとファイル内容をレスポンスとして返す
-    return Response::make($file, 200)->header('Content-Type', $type);
-
-})->name('view.image')
-    ->withoutMiddleware([\Illuminate\Session\Middleware\StartSession::class, \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class]);

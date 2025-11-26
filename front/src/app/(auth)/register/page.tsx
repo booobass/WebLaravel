@@ -41,7 +41,6 @@ const Register = () => {
             localStorage.setItem("auth_token", token)
             alert("ユーザー登録しました")
             router.push("/login")
-            console.log(response)
         } catch {
             alert("ユーザー登録できません")
         }

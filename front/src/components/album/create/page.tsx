@@ -15,7 +15,6 @@ const CreateAlbum = () => {
     const [title, setTitle] = useState("")
     const [songs, setSongs] = useState([{title: "", track_number: "1"}])
 
-    console.log("image", image)
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if(acceptedFiles.length > 0) {

@@ -22,7 +22,6 @@ const CreateGig = () => {
     const [band, setBand] = useState([{name: ""}])
     const [dj, setDj] = useState([{name: ""}])
 
-    console.log("band", band)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({

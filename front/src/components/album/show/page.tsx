@@ -31,8 +31,6 @@ const ShowAlbum = () => {
             try {
                 const response = await api.get(`/api/uuu/${slug}/albums`)
                 setData(response.data)
-                console.log(response.data)
-                console.log(response.data.albums)
             } catch {
                 alert("データを取得出来ません")
             } finally {

@@ -36,7 +36,6 @@ const Login = () => {
                 password: user.password,
                 password_confirmation: user.password_confirmation
             })
-            console.log(response.data)
             const token = await response.data.token
             const slug = await response.data.user.slug
             localStorage.setItem("token", token)

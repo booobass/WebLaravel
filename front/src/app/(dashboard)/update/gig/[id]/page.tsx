@@ -20,9 +20,7 @@ const UpdateGig = () => {
     
     const singleGig = gigs.find((e) => String(e.id) === id)
 
-    console.log("sG", singleGig)
     
-    console.log("gigs", singleGig)
     const [update, setUpdate] = useState({
         date: "",
         place: "",
@@ -32,7 +30,6 @@ const UpdateGig = () => {
         day_price: "",
     })
 
-    console.log("date", update)
 
     const [bands, setBands] = useState([{name: ""}])
     const [djs, setDjs] = useState([{name: ""}])
