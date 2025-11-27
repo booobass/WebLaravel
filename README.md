@@ -12,6 +12,7 @@ Vercel / Railwayにデプロイしています。
 - Next.js 15.5(App Router)
 - TypeScript
 - Axios 1.12
+- react-dropzone
 - Tailwind / CSS Modules
 - Jest + @testing-library/react
 
@@ -31,5 +32,6 @@ Vercel / Railwayにデプロイしています。
 ## 機能概要
 - ユーザーテーブルにslugカラムがあり各々の独自のurlでホームページを表示できる
 - CDアルバムのジャケット画像、アルバム名、曲（6曲まで）を登録できる
+- 画像と収録曲をスライドで表示しました
 - 音源を3曲までアップロードできる
 - ライブ情報を登録出来る
