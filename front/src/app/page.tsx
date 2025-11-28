@@ -2,6 +2,7 @@
 
 import "@/app/globals.css"
 import Link from "next/link"
+import DemoLogin from "./(auth)/DemoLogin"
 
 const Home = () => {
 
@@ -24,6 +25,10 @@ const Home = () => {
         <p>https://********/uuu/** URLの最後をオリジナルの文字列で登録出来ます
         </p>
         <p>現在、ニュース機能を作成中</p>
+        <p className="mt-6 text-red-700 text-center">下記のリンクからサンプルをご覧になれます</p>
+        <div className="justify-items-center mt-3">
+          <DemoLogin />
+        </div>
       </footer>
     </div>
   )
